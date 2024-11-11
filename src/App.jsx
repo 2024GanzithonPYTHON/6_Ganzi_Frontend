@@ -18,6 +18,7 @@ function App() {
       <br/><br/>
       <h1> Flan 프론트엔드용 Vite React입니다</h1>
       <h2>도유성 이가영 파이팅~!</h2>
+      <h2>으쌰으쌰 파이팅팅팅</h2>
       </div>
     </>
   )
