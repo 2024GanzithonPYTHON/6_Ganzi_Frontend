@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import MyPage from './pages/myPage/MyPage'; // 무슨오류인지 모르겟네 ㅁㅅㅁ
+import MyPage from './pages/myPage/MyPage';
 import './App.css'
 import styled from "styled-components"
 
@@ -14,11 +14,11 @@ const StyledEx = styled.span`
 
  function App() {
   return (
-    <div id="app">
+    <div id="app"> 
       <Router>
         <Routes>
           <Route path="/MyPage" element={<MyPage />} />
-          {/* 여기에 다른 Route를 추가하세요 */}
+          {/* 다른 Route 추가 */}
         </Routes>
 
         <div>
