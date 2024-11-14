@@ -19,7 +19,7 @@ html, body {
 /* 콘텐츠 영역 설정 */
 #app {
   width: 100%;
-  max-width: 383px; /* 피그마 페이지 기준으로 설정 */
+  max-width: 393px; /* 피그마 페이지 기준으로 설정 */ /*383->393 숫자 잘못 봤어요...)*/
   min-height: 100vh;
   background-color: #ffffff; /* 내부 콘텐츠 영역 배경색 */
   overflow-x: hidden; /* 좌우 스크롤 방지 */
