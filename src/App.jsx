@@ -14,20 +14,22 @@ const StyledEx = styled.span`
 
  function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/MyPage" element={<MyPage />} />
-        {/* Another Route */}
-      </Routes>
-      
-      <div>
-        <StyledEx>Flan</StyledEx>
-        <br /><br />
-        <h1> Flan 프론트엔드용 Vite React입니다</h1>
-        <h2>도유성 이가영 파이팅~!</h2>
-        <h2>으쌰으쌰 파이팅팅팅.</h2>
-      </div>
-    </Router>
+    <div id="app">
+      <Router>
+        <Routes>
+          <Route path="/MyPage" element={<MyPage />} />
+          {/* 여기에 다른 Route를 추가하세요 */}
+        </Routes>
+
+        <div>
+          <StyledEx>Flan</StyledEx>
+          <br /><br />
+          <h1>Flan 프론트엔드용 Vite React입니다</h1>
+          <h2>도유성 이가영 파이팅~!</h2>
+          <h2>으쌰으쌰 파이팅팅팅.</h2>
+        </div>
+      </Router>
+    </div>
   );
 }
 
