@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
+import EditProfile from './pages/myPage/EditProfile';
 import './App.css'
 import styled from "styled-components"
 
@@ -18,6 +20,8 @@ const StyledEx = styled.span`
       <Router>
         <Routes>
           <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/EditProfile" element={<EditProfile />} />
+          <Route path="/Register" element={<Register />} />
           {/* 다른 Route 추가 */}
         </Routes>
 

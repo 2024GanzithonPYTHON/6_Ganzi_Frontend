@@ -10,7 +10,7 @@ function MyPage() {
         <div className="profile-image">프로필 이미지</div>
         <div className="profile-info">
           <h2 className="nickname">마라맛아기사자</h2>
-          <Link to="/edit-profile" className="edit-profile">프로필 수정하기</Link>
+          <Link to="/EditProfile" className="edit-profile">프로필 수정하기</Link>
           <button className="logout-button">로그아웃</button>
         </div>
       </div>

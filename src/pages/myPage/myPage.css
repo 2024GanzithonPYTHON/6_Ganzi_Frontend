@@ -18,6 +18,7 @@
     border-radius: 8px;
     width: 100vw;
     margin: 0 auto;
+    z-index: 100;
   }
   
   .profile-image {
@@ -91,31 +92,39 @@
     font-size: 16px;
     margin-bottom: 8px;
   }
-  
   .schedule-links {
     display: flex;
-    gap: 8px;
+    gap: 15px;
+    padding: 0 16.5px; /* 양쪽 끝 간격 설정 */
   }
-  
+
   .schedule-links a {
-    background-color: #E0F4FF;
-    padding: 8px;
-    border-radius: 8px;
+    background-color: #DAECF5;
     font-size: 14px;
     text-align: center;
-    flex: 1;
+    border-radius: 10px;
+    width: 110px;
+    height: 63px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit; /* 텍스트 색상 상속 */
   }
+
   
   .calendar-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #CCCCCC;
+    background-color: #5D5D5D;
     padding: 16px;
     border-radius: 8px;
     color: #FFFFFF;
     text-decoration: none;
     margin-top: 8px;
+    width: 359px;
+    height: 80px;
   }
   
   .calendar-icon {
