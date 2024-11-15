@@ -1,0 +1,36 @@
+/* 기본 하단바 스타일 */
+.wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0; /* 바닥에 고정 */
+  }
+  
+  /* 모바일 화면에 대한 스타일 */
+  @media (max-width: 768px) {
+    .wrapper {
+      height: 60px; /* 모바일에서 적절한 높이 설정 */
+      background-color: #F4F4F4; /* 필요 시 배경색 설정 */
+    }
+  
+    nav > button {
+      width: 80px; /* 모바일에서 버튼 크기 조정 */
+      height: 40px;
+      margin-left: 5px;
+    }
+  }
+  
+  /* 데스크탑 화면에 대한 스타일 */
+  @media (min-width: 769px) {
+    .wrapper {
+      height: 80px; /* 데스크탑에서 적절한 높이 설정 */
+      background-color: #F4F4F4; /* 필요 시 배경색 설정 */
+    }
+  
+    nav > button {
+      width: 100px; /* 데스크탑에서 버튼 크기 유지 */
+      height: 100px;
+      margin-left: 10px;
+    }
+  }
+  
