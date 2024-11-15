@@ -9,7 +9,7 @@ function MyPage() {
         {/* 프로필 이미지와 닉네임은 API가 완성되면 데이터를 불러와 사용 */}
         <div className="profile-image">프로필 이미지</div>
         <div className="profile-info">
-          <h2 className="nickname">닉네임글자열자입니다</h2>
+          <h2 className="nickname">일이삼사오륙칠팔구십</h2>
           <Link to="/EditProfile" className="button-edit-profile">프로필 수정하기</Link>
           <button className="logout-button">로그아웃</button>
         </div>
