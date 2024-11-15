@@ -28,4 +28,5 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1; /* 고정된 도형 표현 이슈로 z-index 값 부여 */
 }
