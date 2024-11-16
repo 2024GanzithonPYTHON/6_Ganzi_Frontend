@@ -1,68 +1,32 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+/* CSS RESET : 모든 요소 제거 */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* 좌우 스크롤 제거 */
+  background-color: #cccccc; /* 외부 영역 회색 설정 */
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif; /* pretendard Variable */
+}
+
+/* 콘텐츠 영역 설정 */
+#app {
+  width: 100%;
+  max-width: 393px; /* 피그마 페이지 기준으로 설정 */ /*383->393 숫자 잘못 봤어요...)*/
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  background-color: #ffffff; /* 내부 콘텐츠 영역 배경색 */
+  overflow-x: hidden; /* 좌우 스크롤 방지 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: 1rem; /*상단 여백 : 얼만큼 줘야될지 아직 명확하지 않음 : header 완성되는거 보고 조정 필요*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1; /* 고정된 도형 표현 이슈로 z-index 값 부여 */
 }
