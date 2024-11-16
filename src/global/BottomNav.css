@@ -10,9 +10,9 @@
   @media (max-width: 768px) {
     .wrapper {
       height: 60px; /* 모바일에서 적절한 높이 설정 */
-      background-color: #F4F4F4; /* 필요 시 배경색 설정 */
+      background-color: #F5F5F5; /* 마찬가지로 피그마에 맞춰두겠습니다~! */
     }
-  
+    /*nav안의 버튼*/
     nav > button {
       width: 80px; /* 모바일에서 버튼 크기 조정 */
       height: 40px;
@@ -24,7 +24,7 @@
   @media (min-width: 769px) {
     .wrapper {
       height: 80px; /* 데스크탑에서 적절한 높이 설정 */
-      background-color: #F4F4F4; /* 필요 시 배경색 설정 */
+      background-color: #F5F5F5; /* 디폴트로 일단 맞춰둠. 구분되는지 확인하고 싶으면 바꾸시면 됩니다. */
     }
   
     nav > button {
