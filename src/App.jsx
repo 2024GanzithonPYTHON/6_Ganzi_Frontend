@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
+import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import './App.css'
 import styled from "styled-components"
 
@@ -22,6 +23,7 @@ const StyledEx = styled.span`
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/SingleNroutine" element={<SelectRoutine />} />
           {/* 다른 Route 추가 */}
         </Routes>
 
