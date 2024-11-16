@@ -4,6 +4,7 @@ import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
+import Loading from './pages/scheduleRequest/Loading';
 import './App.css'
 import styled from "styled-components"
 
@@ -24,6 +25,7 @@ const StyledEx = styled.span`
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
+          <Route path="/Loading" element={<Loading duration={5000} redirectTo="/Detailworks" />} />
           {/* 다른 Route 추가 */}
         </Routes>
 
