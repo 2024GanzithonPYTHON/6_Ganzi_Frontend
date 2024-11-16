@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './MyPage.css';
+import logoutIcon from '../../assets/myPage/logout.png';
+
+
 
 function MyPage() {
   return (
@@ -11,7 +14,10 @@ function MyPage() {
         <div className="profile-info">
           <h2 className="nickname">일이삼사오륙칠팔구십</h2>
           <Link to="/EditProfile" className="button-edit-profile">프로필 수정하기</Link>
-          <button className="logout-button">로그아웃</button>
+          <button class="logout-button">
+            <img src={logoutIcon} alt="Logout Icon" class="logout-icon" />
+            <span class="logout-text">로그아웃</span>
+          </button>
         </div>
       </div>
 
