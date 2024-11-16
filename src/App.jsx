@@ -6,6 +6,8 @@ import EditProfile from './pages/myPage/EditProfile';
 import './App.css'
 import styled from "styled-components"
 
+import BottomNav from './global/BottomNav';
+
 const StyledEx = styled.span`
  background-color: #B86217;
  color: Yellow;
@@ -13,6 +15,13 @@ const StyledEx = styled.span`
  font-weight: bold;
  padding: 30px;
  `;
+
+const Footer = styled.div`
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+`;
 
  function App() {
   return (
@@ -29,10 +38,12 @@ const StyledEx = styled.span`
           <StyledEx>Flan</StyledEx>
           <br /><br />
           <h1>Flan 프론트엔드용 Vite React입니다</h1>
-          <h2>도유성 이가영 파이팅~!</h2>
-          <h2>으쌰으쌰 파이팅팅팅.</h2>
         </div>
+        <Footer>
+          <BottomNav/>
+        </Footer>
       </Router>
+
     </div>
   );
 }
