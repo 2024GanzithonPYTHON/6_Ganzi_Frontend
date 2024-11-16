@@ -6,21 +6,62 @@ body{
 font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-/* 모바일 화면에 대한 스타일 */
-@media (max-width: 768px) {
-  /* 모바일 규격에서 적용할 스타일 */
-  body {
-    /*모바일, 데스크톱 규격확인 먼가 하고싶으면 이 색 바꾸시면 됩니다*/
-    background-color: #F5F5F5;
-  }
 
-  /* 다른 모바일 전용 스타일을 여기에 추가 */
+/* CSS RESET : 모든 요소 제거 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}*/
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden; /* 좌우 스크롤 제거 */
+  background-color: #cccccc; /* 외부 영역 회색 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard Variable", sans-serif; 
 }
 
-/* 모바일 화면을 벗어나는 경우 */
-@media (min-width: 769px) {
-  /* 데스크탑 전용 스타일 */
+/* 콘텐츠 영역 설정 */
+#app {
+  width: 393px; /*100%로 해두면 글자 적어지면 작아져서 px로 변경했습니다*/
+  max-width: 393px; /* 피그마 페이지 기준으로 설정 */ /*383->393 숫자 잘못 봤어요...)*/
+  min-height: 100vh;
+  background-color: #ffff; /* 내부 콘텐츠 영역 배경색 -> 완전하양아니고 피그마에 f5f5라고 찍혀서 일단 그걸로 바꿧슈 */
+  overflow-x: hidden; /* 좌우 스크롤 방지 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-top: 1rem; /*상단 여백 : 얼만큼 줘야될지 아직 명확하지 않음 : header 완성되는거 보고 조정 필요*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1; /* 고정된 도형 표현 이슈로 z-index 값 부여 */
+}
+
+/* 모바일 화면에 대한 스타일 */
+@media (max-width: 420px) {
   body {
-    background-color: #F5F5F5;
+    background-color: #ffffff; /* 모바일 배경색 */
+  }
+
+  #app {
+    width: 393px; /* 모바일에서는 100% 너비, 즉 화면 너비에 맞춤 */
+    max-width: 420px; /* 최대 너비는 여전히 393px */
+    padding-top: 0.5rem; /* 모바일에서의 상단 여백 조정 */
+  }
+}
+
+/* 데스크톱 화면에 대한 스타일 */
+@media (min-width: 769px) {
+  /* 데스크톱에서의 스타일 설정 */
+  body {
+    background-color: #cccccc; /* 데스크톱 배경색 */
+  }
+
+  #app {
+    width: 393px; /* 데스크톱에서는 393px 고정 */
+    padding-top: 1rem; /* 상단 여백 유지 */
   }
 }

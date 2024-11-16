@@ -1,5 +1,9 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Register from './pages/login/Register';
+import MyPage from './pages/myPage/MyPage';
+import EditProfile from './pages/myPage/EditProfile';
 import './App.css'
-import {BrowserView, MobileView} from 'react-device-detect'
 import styled from "styled-components"
 
 import BottomNav from './global/BottomNav';
@@ -12,24 +16,36 @@ const StyledEx = styled.span`
  padding: 30px;
  `;
 
-function App() {
+const Footer = styled.div`
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+`;
 
+ function App() {
   return (
-    <>
-      <div>
-      <StyledEx>Flan</StyledEx>
-      <br/><br/>
+    <div id="app"> 
+      <Router>
+        <Routes>
+          <Route path="/MyPage" element={<MyPage />} />
+          <Route path="/EditProfile" element={<EditProfile />} />
+          <Route path="/Register" element={<Register />} />
+          {/* 다른 Route 추가 */}
+        </Routes>
 
-      <BrowserView>
-        <h1>데톱용 로딩입니다</h1>
-      </BrowserView>
-      <MobileView>
-        <h1>모바일용 로딩입니다</h1>
-      </MobileView>
-      <BottomNav/>
-      </div>
-    </>
-  )
+        <div>
+          <StyledEx>Flan</StyledEx>
+          <br /><br />
+          <h1>Flan 프론트엔드용 Vite React입니다</h1>
+        </div>
+        <Footer>
+          <BottomNav/>
+        </Footer>
+      </Router>
+
+    </div>
+  );
 }
 
-export default App
+export default App;
