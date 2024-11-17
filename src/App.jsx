@@ -5,6 +5,7 @@ import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import Loading from './pages/scheduleRequest/Loading';
+import LoginPage from './pages/login/Login';
 import './App.css'
 import styled from "styled-components"
 
@@ -35,6 +36,7 @@ const Footer = styled.div`
           <Route path="/Register" element={<Register />} />
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
           <Route path="/Loading" element={<Loading duration={5000} redirectTo="/Detailworks" />} />
+          <Route path="/Login" element={<LoginPage />} />
           {/* 다른 Route 추가 */}
         </Routes>
 
