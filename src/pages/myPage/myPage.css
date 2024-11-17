@@ -13,7 +13,6 @@
   }
   
   .my-page { /* 페이지 전체 속성 */
-      font-family: Arial, sans-serif; /*프리텐다드 사용해야됨*/
       width:100%;
       max-width: 100vw;
       margin: auto;
