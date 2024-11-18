@@ -19,9 +19,9 @@ const LogoFix = styled.div`
   width: 100%
 
 `
+// 로고와 간격을 주기위한 패딩
 const Content = styled.div`
     padding-top: 100px; /* 로고 높이만큼 패딩 추가 (데스크탑) */
-    /* 모바일 화면을 위한 패딩 추가 */
     @media (max-width: 420px) {
         padding-top: 60px; /* 로고 높이만큼 패딩 추가 (모바일) */
     }
