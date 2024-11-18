@@ -1,0 +1,120 @@
+/* 기본 레이아웃 설정 */
+body {
+    margin: 0;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .app-container {
+    width: 393px;
+    background-color: white;
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 72px;
+  }
+
+  .schedule-question {
+    font-size: 20px;
+    color: #000;
+    margin-bottom: 17px;
+  }
+
+  /* 버튼 컨테이너 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 41px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    background-color: #F8D785; /* 노란 배경 */
+    border-radius: 20px;
+    padding: 5px;
+    width: 285px;
+    height: 42px;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  /* 버튼 기본 스타일 */
+  .schedule-button {
+    flex: 1;
+    width: 128px;
+    height: 30px;
+    font-size: 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: transparent; /* 기본: 투명 배경 */
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    z-index: 1; /* 버튼이 배경 위로 올라오도록 */
+  }
+
+  /* 활성화된 버튼 */
+  .schedule-button.active {
+    background-color: white; /* 하얀 배경 */
+    color: #333;
+    font-weight: 300;
+    border-radius: 20px; /* 둥근 모서리 */
+    z-index: 2;
+  }
+
+  /* 활성화된 버튼 위치 강조 */
+  .button-wrapper .schedule-button:first-child.active {
+    box-shadow: 0 0 0 2px #F8D785; /* 노란 테두리 강조 */
+  }
+  .button-wrapper .schedule-button:last-child.active {
+    box-shadow: 0 0 0 2px #F8D785; /* 노란 테두리 강조 */
+  }
+
+  .schedule-display {
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fafafa;
+  }
+
+  .placeholder {
+    font-size: 1rem;
+    color: #999;
+    text-align: center;
+  }
+
+  .date-placeholder {
+    background-color: #e0f7fa;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .recurring-placeholder {
+    background-color: #ffe0b2;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .continue-button {
+    display: block;
+    width: 276px;
+    height: 44px;
+    font-size: 14px;
+    color: white;
+    background-color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 0 auto;
+  }
