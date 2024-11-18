@@ -22,7 +22,9 @@ const Day = styled.div`
     align-items: center; 
     justify-content: center; 
     font-weight: normal; 
-    color: ${props => (props.isPastMonth ? '#D9D9D9' : 'black')}; 
+    color: ${props => (props.isPastMonth ? '#D9D9D9' : props.isSelected ? 'white' : 'black')}; 
+    background-color: ${props => (props.isSelected ? '#222222' : 'transparent')}; /* 선택된 날짜의 배경색 */
+    cursor: pointer; /* 클릭할 수 있는 느낌을 주기 위해 커서 변경 */
 `;
 
 const WeekdayContainer = styled.div`
@@ -36,7 +38,7 @@ const Weekday = styled.div`
     height: 20px; 
     margin: 0 1.5px 8px;
     text-align: center;
-    color: ${props => (props.isWeekend ? 'red' : 'black')}; /* 금요일과 토요일만 빨간색 */
+    color: ${props => (props.isWeekend ? 'red' : 'black')}; /* 토일만 빨간색 */
 `;
 
 const YearMonthContainer = styled.div`
@@ -69,43 +71,30 @@ const Button = styled.button`
     font-weight: lighter; /* 피그마에 lighter이라 되어있음 */
 `;
 
-function Calendar() {
+function Calendar({ onDateSelect }) {
     const [date, setDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
 
-    // 현재 달의 시작과 종료 날짜
     const start = startOfMonth(date);
     const end = endOfMonth(date);
-
-    // 캘린더의 시작 날짜 (주 단위)
     const startOfCalendar = startOfWeek(start, { weekStartsOn: 0 });
-    const endOfCalendar = endOfWeek(end, { weekStartsOn: 0 }); // 주 단위로 끝 날짜 설정
-
-    // 전체 캘린더 날짜 배열 생성
+    const endOfCalendar = endOfWeek(end, { weekStartsOn: 0 });
     const calendarDays = eachDayOfInterval({ start: startOfCalendar, end: endOfCalendar });
 
-    const handlePreviousMonth = () => {
-        setDate(prevDate => {
-            const newDate = new Date(prevDate);
-            newDate.setMonth(prevDate.getMonth() - 1);
-            return newDate;
-        });
-    };
-
-    const handleNextMonth = () => {
-        setDate(prevDate => {
-            const newDate = new Date(prevDate);
-            newDate.setMonth(prevDate.getMonth() + 1);
-            return newDate;
-        });
+    const handleDayClick = (day) => {
+        setSelectedDate(day);
+        if (onDateSelect) {
+            onDateSelect(day); // 부모 컴포넌트에 선택된 날짜 전달
+        }
     };
 
     return (
         <CalendarContainer>
             <Navigation>
                 <YearMonthContainer>
-                    <Button onClick={handlePreviousMonth}>&lt;</Button>
+                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() - 1)))}>&lt;</Button>
                     <YearMonth>{format(date, 'yyyy년 MM월')}</YearMonth>
-                    <Button onClick={handleNextMonth}>&gt;</Button>
+                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() + 1)))}>&gt;</Button>
                 </YearMonthContainer>
             </Navigation>
             <WeekdayContainer>
@@ -115,10 +104,16 @@ function Calendar() {
             </WeekdayContainer>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {calendarDays.map(day => {
-                    const isFirstDay = format(day, 'd') === '1';
-                    const isPastMonth = !isSameMonth(start, day);
+                    const isSelected = selectedDate && format(selectedDate, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd');
+                    const isPastMonth = !isSameMonth(date, day); // 현재 월과 같지 않은 경우
+
                     return (
-                        <Day key={day} isFirstDay={isFirstDay} isPastMonth={isPastMonth}>
+                        <Day
+                            key={day}
+                            isSelected={isSelected}
+                            isPastMonth={isPastMonth} // 지난달/다음달 여부
+                            onClick={() => handleDayClick(day)}
+                        >
                             {format(day, 'd')}
                         </Day>
                     );
