@@ -21,7 +21,7 @@ const Day = styled.div`
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    font-weight: narmal; 
+    font-weight: normal; 
     color: ${props => (props.isPastMonth ? '#D9D9D9' : 'black')}; 
 `;
 
@@ -36,26 +36,37 @@ const Weekday = styled.div`
     height: 20px; 
     margin: 0 1.5px 8px;
     text-align: center;
+    color: ${props => (props.isWeekend ? 'red' : 'black')}; /* 금요일과 토요일만 빨간색 */
+`;
+
+const YearMonthContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-grow: 1; /* 남는 공간을 차지하도록 설정 */
+`;
+
+const YearMonth = styled.div`
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 5px; /* 버튼과의 간격*/
 `;
 
 const Navigation = styled.div`
     display: flex;
-    justify-content: space-between;
+    align-items: center; 
     width: 100%;
     margin-bottom: 10px;
 `;
 
 const Button = styled.button`
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
-
-    &:hover {
-        background-color: #0056b3;
-    }
+    background-color: transparent; /* 배경을 투명하게 */
+    color: black;
+    font-size: 20px; 
+    font-weight: lighter; /* 피그마에 lighter이라 되어있음 */
 `;
 
 function Calendar() {
@@ -91,13 +102,15 @@ function Calendar() {
     return (
         <CalendarContainer>
             <Navigation>
-                <Button onClick={handlePreviousMonth}>이전</Button>
-                <div>{format(date, 'yyyy년 MM월')}</div>
-                <Button onClick={handleNextMonth}>다음</Button>
+                <YearMonthContainer>
+                    <Button onClick={handlePreviousMonth}>&lt;</Button>
+                    <YearMonth>{format(date, 'yyyy년 MM월')}</YearMonth>
+                    <Button onClick={handleNextMonth}>&gt;</Button>
+                </YearMonthContainer>
             </Navigation>
             <WeekdayContainer>
-                {['일', '월', '화', '수', '목', '금', '토'].map((weekday) => (
-                    <Weekday key={weekday}>{weekday}</Weekday>
+                {['일', '월', '화', '수', '목', '금', '토'].map((weekday, index) => (
+                    <Weekday key={weekday} isWeekend={index === 6 || index === 0}>{weekday}</Weekday>
                 ))}
             </WeekdayContainer>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
