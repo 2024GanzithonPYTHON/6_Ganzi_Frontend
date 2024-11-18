@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -25,7 +26,6 @@ const Login = () => {
           // 토큰을 로컬스토리지에 저장
           localStorage.setItem("access_token", data.access_token);
           localStorage.setItem("refresh_token", data.refresh_token);
-          alert("로그인 성공!");
           navigate("/메인페이지 주소"); // 성공 시 리다이렉트
         } else {
           alert("로그인에 실패했습니다.");
