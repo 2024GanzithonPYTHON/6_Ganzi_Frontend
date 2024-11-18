@@ -76,6 +76,8 @@
     width: 328px;
     font-size: 16px;
     margin-bottom: 25px;
+    border-radius: 10px;
+    border: 0.3px solid #d9d9d9;
   }
   
   .delete-button {

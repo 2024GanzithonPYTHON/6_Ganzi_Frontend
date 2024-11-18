@@ -1,5 +1,121 @@
-.must {
+.register-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 51px;
+}
+
+.img-upload-container {
+    display: flex; /* 제목과 버튼을 한 줄에 배치 */
+    flex-direction: column;
+    align-items: flex-start; /* 상단 기준으로 정렬 */
+    margin-right: 163px; /* 컨테이너를 왼쪽으로 이동 */
+  }
+
+.img-upload-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.image-upload-label {
+    display: inline-block;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 114px; /* 버튼 크기 */
+  height: 114px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 25px;
+}
+
+.upload-button-image {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+}
+
+.file-input {
+  display: none;
+}
+
+.nickEditContainer {
+    display: flex; /* 제목과 버튼을 한 줄에 배치 */
+    flex-direction: column;
+    align-items: flex-start; /* 상단 기준으로 정렬 */
+  
+  }
+  
+  .nickTitle {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  
+  .nickname-input {
+      padding: 10px;
+      width: 328px;
+      font-size: 16px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+        border: 0.3px solid #d9d9d9;
+    }
+
+    .agreeContainer {
+        display: flex; /* 제목과 버튼을 한 줄에 배치 */
+        flex-direction: column;
+        align-items: flex-start; /* 상단 기준으로 정렬 */
+      
+      }
+
+.agreements-border {
+    width: 330px;
+    border: 0.3px solid #d9d9d9;
+    padding: 18px;
+    border-radius: 10px;
+    display: flex; /* 제목과 버튼을 한 줄에 배치 */
+    flex-direction: column;
+    align-items: flex-start; /* 상단 기준으로 정렬 */
+    gap: 2px;  
+}
+
+.agreements-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.all-agree {
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-bottom: 7px;
+}
+
+.single-agree {
+    font-size: 13px;
+    font-weight: 275;
+    margin-left: 21px;
+}
+
+.must-notice {
     font-size: 11px;
     color: red;
     font-weight: 500;
+    margin-top: 9px;
+    margin-bottom: 68px;
 }
+
+.register-button {
+    width: 276px;
+    height: 43.74px;
+    border-radius: 10px;
+    background: var(--Linear, linear-gradient(95deg, #F8D785 29.47%, #FFFD8A 72.69%));
+}
+
+input::placeholder {
+    color: gray;
+    font-size: 13px;
+  }
