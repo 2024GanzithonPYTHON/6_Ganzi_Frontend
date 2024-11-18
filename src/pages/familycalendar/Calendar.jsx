@@ -1,70 +1,124 @@
 import React, { useState } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek, endOfWeek, isSameMonth } from 'date-fns';
 import styled from 'styled-components';
 import "./Calendar.css";
 
 const CalendarContainer = styled.div`
     display: flex; 
-    flex-wrap: wrap; /* 영역내 줄바꿈 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 중앙 정렬 */
     padding: 20px;
     width: 393px; 
 `;
 
 const Day = styled.div`
-    width: 45px; /* 고정 너비 설정 */
-    height: 45px; /* 고정 높이 설정 */
+    width: 45px; 
+    height: 45px;
     border-radius: 10px;
     border: 0.5px solid #000;
-    margin: 1.5px; /* 날짜 간의 간격 설정 */
+    margin: 1.5px;  
     text-align: center;
-    display: flex; /* 내용 중앙 정렬을 위한 flex 사용 */
+    display: flex; 
     align-items: center; 
     justify-content: center; 
+    font-weight: normal; 
+    color: ${props => (props.isPastMonth ? '#D9D9D9' : props.isSelected ? 'white' : 'black')}; 
+    background-color: ${props => (props.isSelected ? '#222222' : 'transparent')}; /* 선택된 날짜의 배경색 */
+    cursor: pointer; /* 클릭할 수 있는 느낌을 주기 위해 커서 변경 */
 `;
 
 const WeekdayContainer = styled.div`
-    display: flex; /* 요일을 가로로 나열 */
-    width: 100%; /* 전체 너비 사용 */
-    justify-content: flex; /* 왼쪽 정렬 */
-    margin-bottom: 5px; /* 요일과 날짜 사이 간격 */
+    display: flex; 
+    width: 100%; 
+    justify-content: center; 
 `;
 
 const Weekday = styled.div`
-    width: 45px; /* 날짜와 너비를 맞추기 위해 동일하게 설정 */
-    height: 45px; /* 날짜와 높이를 맞추기 위해 동일하게 설정 */
+    width: 45px;
+    height: 20px; 
+    margin: 0 1.5px 8px;
     text-align: center;
-    font-weight: bold;
+    color: ${props => (props.isWeekend ? 'red' : 'black')}; /* 토일만 빨간색 */
 `;
 
-function Calendar() {
-    const [date] = useState(new Date());
+const YearMonthContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-grow: 1; /* 남는 공간을 차지하도록 설정 */
+`;
+
+const YearMonth = styled.div`
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 5px; /* 버튼과의 간격*/
+`;
+
+const Navigation = styled.div`
+    display: flex;
+    align-items: center; 
+    width: 100%;
+    margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+    cursor: pointer;
+    padding: 5px 5px;
+    border: none;
+    background-color: transparent; /* 배경을 투명하게 */
+    color: black;
+    font-size: 20px; 
+    font-weight: lighter; /* 피그마에 lighter이라 되어있음 */
+`;
+
+function Calendar({ onDateSelect }) {
+    const [date, setDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const start = startOfMonth(date);
     const end = endOfMonth(date);
-    const days = eachDayOfInterval({ start, end });
-
-    // 주의 시작 요일을 일요일로 설정
-    const startOfCalendar = startOfWeek(start, { weekStartsOn: 0 }); // 0은 일요일
-    const endOfCalendar = endOfMonth(end);
-
-    // 전체 달력을 위한 날짜 배열 생성
+    const startOfCalendar = startOfWeek(start, { weekStartsOn: 0 });
+    const endOfCalendar = endOfWeek(end, { weekStartsOn: 0 });
     const calendarDays = eachDayOfInterval({ start: startOfCalendar, end: endOfCalendar });
+
+    const handleDayClick = (day) => {
+        setSelectedDate(day);
+        if (onDateSelect) {
+            onDateSelect(day); // 부모 컴포넌트에 선택된 날짜 전달
+        }
+    };
 
     return (
         <CalendarContainer>
-            {/* 요일 표시 */}
+            <Navigation>
+                <YearMonthContainer>
+                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() - 1)))}>&lt;</Button>
+                    <YearMonth>{format(date, 'yyyy년 MM월')}</YearMonth>
+                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() + 1)))}>&gt;</Button>
+                </YearMonthContainer>
+            </Navigation>
             <WeekdayContainer>
-                {['일', '월', '화', '수', '목', '금', '토'].map((weekday) => (
-                    <Weekday key={weekday}>{weekday}</Weekday>
+                {['일', '월', '화', '수', '목', '금', '토'].map((weekday, index) => (
+                    <Weekday key={weekday} isWeekend={index === 6 || index === 0}>{weekday}</Weekday>
                 ))}
             </WeekdayContainer>
-            {/* 날짜 표시 */}
-            {calendarDays.map(day => (
-                <Day key={day}>
-                    {format(day, 'd')}
-                </Day>
-            ))}
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {calendarDays.map(day => {
+                    const isSelected = selectedDate && format(selectedDate, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd');
+                    const isPastMonth = !isSameMonth(date, day); // 현재 월과 같지 않은 경우
+
+                    return (
+                        <Day
+                            key={day}
+                            isSelected={isSelected}
+                            isPastMonth={isPastMonth} // 지난달/다음달 여부
+                            onClick={() => handleDayClick(day)}
+                        >
+                            {format(day, 'd')}
+                        </Day>
+                    );
+                })}
+            </div>
         </CalendarContainer>
     );
 }
