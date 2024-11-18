@@ -1,27 +1,66 @@
-.login-container {
+@font-face {
+    font-family: 'ChangWonDanGam';
+    src: url('./assets/ChangwonDangamAsac-Bold_0712.ttf') format('truetype'); /* 폰트 파일 경로 */
+    font-weight: bold;
+    font-style: normal;
+  }
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(180deg, #F8D785 0%, #FBEBC2 33.5%, #FFF 100%);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f2f2f2;
+    flex-direction: column;
   }
-  
-  h1 {
+
+.logo-explain {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 181px;
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .kakao-login-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-  
-  .kakao-login-button img {
-    width: 200px; /* 버튼 이미지 크기 */
-    height: auto;
-  }
-  
+}
+
+.login-logo {
+    font-size: 80px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.70);
+    font-family: ChangWonDanGam, sans-serif;
+    margin-bottom: 59px;
+}
+
+.onboardIcon1 {
+    width: 165px;
+    height: 123px;
+    margin-bottom: 8px;
+}
+    
+.explain {
+    font-size: 15px;
+    font-weight: 300;
+    margin-bottom: 76px;
+}
+
+.onboardIcon2 {
+    width: 45px;
+    height: 43px;
+    margin-bottom: 27px;
+}
+
+.kakao-login-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+ }
+    
+.kakao-login-button img {
+  width: 327px;
+  height: 59px;
+  height: auto;
+}
+    
+.bold {
+    font-weight: bold;
+}
