@@ -38,7 +38,7 @@ function Register() {
     setAgreements(updatedAgreements);
   };
 
-  const isRegisterButtonEnabled = agreements.requiredA && agreements.requiredB;
+  const isRegisterButtonEnabled = profileImage && agreements.requiredA && agreements.requiredB;
 
   return (
     <div>
@@ -77,7 +77,7 @@ function Register() {
               checked={agreements.requiredA}
               onChange={() => handleAgreementChange('requiredA')}
             />
-            필수 a
+            (필수) 개인회원 약관에 동의
           </label>
           <br />
           <label>
@@ -86,7 +86,7 @@ function Register() {
               checked={agreements.requiredB}
               onChange={() => handleAgreementChange('requiredB')}
             />
-            필수 b
+            (필수) 개인정보 수집 및 이용에 동의
           </label>
           <br />
           <label>
@@ -95,10 +95,11 @@ function Register() {
               checked={agreements.optionalC}
               onChange={() => handleAgreementChange('optionalC')}
             />
-            선택 c
+            (선택) 이메일 등 마케팅 정보 수신 동의
           </label>
         </div>
       </section>
+      <div className='must'>*항목 누락 시 가입이 어렵습니다.</div>
 
       <button disabled={!isRegisterButtonEnabled}>프로필 등록하기</button>
     </div>
