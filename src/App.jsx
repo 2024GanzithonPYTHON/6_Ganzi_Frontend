@@ -8,9 +8,24 @@ import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
 
 import './App.css'
+import Logo from './global/Logo';
 import BottomNav from './global/BottomNav';
 import styled from "styled-components"
 
+const LogoFix = styled.div`
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+
+`
+const Content = styled.div`
+    padding-top: 100px; /* 로고 높이만큼 패딩 추가 (데스크탑) */
+    /* 모바일 화면을 위한 패딩 추가 */
+    @media (max-width: 420px) {
+        padding-top: 60px; /* 로고 높이만큼 패딩 추가 (모바일) */
+    }
+`;
 
 const Footer = styled.div`
   display : flex;
@@ -23,6 +38,10 @@ const Footer = styled.div`
   return (
     <div id="app"> 
       <Router>
+        <LogoFix>
+          <Logo/>
+        </LogoFix>
+        <Content>
         <Routes>
           <Route path = "/" element = {<Home/>}/> {/*일단 예비로 빼뒀습니다. 디자인에 방해될 것 같아서요!*/ }
           <Route path="/MyPage" element={<MyPage />} />
@@ -31,6 +50,7 @@ const Footer = styled.div`
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           {/* 다른 Route 추가 */}
         </Routes>
+        </Content>
         <Footer>
           <BottomNav/>
         </Footer>
