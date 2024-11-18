@@ -6,7 +6,13 @@ body{
 font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-
+/* 창원단감서체 로고 스타일 */
+@font-face {
+  font-family: 'ChangWonDanGam';
+  src: url('./assets/ChangwonDangamAsac-Bold_0712.ttf') format('truetype'); /* 폰트 파일 경로 */
+  font-weight: bold;
+  font-style: normal;
+}
 /* CSS RESET : 모든 요소 제거 
 * {
   margin: 0;
