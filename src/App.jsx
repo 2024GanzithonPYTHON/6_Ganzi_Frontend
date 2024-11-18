@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
-import './App.css'
-import styled from "styled-components"
+import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
 
+import './App.css'
 import BottomNav from './global/BottomNav';
+import styled from "styled-components"
 
 
 const Footer = styled.div`
@@ -26,6 +28,7 @@ const Footer = styled.div`
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
+          <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           {/* 다른 Route 추가 */}
         </Routes>
         <Footer>
