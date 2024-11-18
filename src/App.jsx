@@ -50,7 +50,7 @@ const Footer = styled.div`
           <Route path="/Register" element={<Register />} />
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
-          <Route path="/Loading" element={<Loading duration={5000} redirectTo="/Detailworks" />} />
+          <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
           {/* 다른 Route 추가 */}
         </Routes>
