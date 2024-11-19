@@ -2,7 +2,7 @@
 .logo-wrapper {
     position: fixed; /* 항상 화면에 고정 */
     top: 0; /* 상단에 고정 */
-
+    background-color: #ffff;
     /* 래퍼 안에서 버튼 배치*/
     display: flex;
     justify-content: center;
@@ -22,7 +22,7 @@
 /* 데스크탑 화면에 대한 스타일 */
 @media (min-width: 421px) {
     .logo-wrapper {
-        height: 80px; /* 데스크탑에서 적절한 높이 설정 */
+        height: 50px; /* 데스크탑에서 적절한 높이 설정 */
         width: 393px; /* 데스크탑 화면에 맞춰 너비 설정 */
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-// Mock Data
+// Mock Data -> 후에 이미지까지 올 예정
 const mockSchedules = [
     {
         personal_schedule_id: 1,
@@ -62,18 +62,80 @@ const mockSchedules = [
 
 const ScheduleContainer = styled.div`
     margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 `;
 
 const ScheduleItem = styled.div`
+    width: 333px;
+    height: 109px;
+    flex-shrink: 0;
+    border-radius: 10px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    padding: 10px; /* 패딩 추가 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+
+    &:hover {
+        border: 0px solid #ffff;
+        background-color: #f0e68c; /* 호버 시 배경색 변경 */
+    }
+`;
+
+const GraySquare = styled.div`
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    background: #6E6C6C;
+    margin-right: 10px; /* 오른쪽 마진 추가 */
+    margin-top: 5px;
+`;
+
+const CategoryContainer = styled.div`
+    width: 67px;
+    height: 21px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #6E6C6C;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+    color: #F8D785;
+    font-size: 10px;
+    font-weight: 300;
+    margin-right: 10px; /* 스케줄 제목과 간격 추가 */
+`;
+
+const InfoContainer = styled.div`
+   display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 위쪽 정렬로 변경 */
+    height: 100%; /* 전체 높이를 사용하여 중앙 정렬 */
+`;
+
+const ScheduleTitle = styled.div`
+    font-weight: bold;
+    height: 15px;
+    line-height: 21px; 
+    `
+
+const ScheduleTime = styled.div`
+    color: black;
+    font-size: 15px;
+    margin-top: 10px;
+`;
+
+const Memo = styled.div`
     padding: 10px;
+    background-color: #fff8dc; /* 메모 배경색 */
     border: 1px solid #ddd;
     border-radius: 3px;
-    background-color: #fff; /* 배경색 추가 */
+    margin-top: 5px;
+    width: 100%;
 `;
 
 const FamilySchedule = ({ selectedDate }) => {
@@ -100,7 +162,7 @@ const FamilySchedule = ({ selectedDate }) => {
         // 날짜 비교
         const isSameDate = scheduleDate.toDateString() === selectedDateObj.toDateString();
         const isDaily = schedule.is_daily === true;
-        const isWeekly = schedule.is_weekly === true && selectedDateObj.getDay() === 2; // 수요일
+        const isWeekly = schedule.is_weekly === true && selectedDateObj.getDay() === 2; // 화요일
 
         return isSameDate || isDaily || isWeekly;
     };
@@ -112,9 +174,14 @@ const FamilySchedule = ({ selectedDate }) => {
             ) : (
                 schedules.map(schedule => (
                     <ScheduleItem key={schedule.personal_schedule_id}>
-                        <div><strong>카테고리:로 추후대체될 부분 _ </strong> {schedule.personal_schedule_id}</div>
-                        <div><strong>스케줄명:</strong> {schedule.schedule_title}</div>
-                        <div><strong>시간:</strong> {schedule.start_time} - {schedule.end_time}</div>
+                        <GraySquare />
+                        <CategoryContainer>
+                            Category: {schedule.personal_schedule_id}
+                        </CategoryContainer>
+                        <InfoContainer>
+                            <ScheduleTitle>{schedule.schedule_title}</ScheduleTitle>
+                            <ScheduleTime>{schedule.start_time} - {schedule.end_time}</ScheduleTime>
+                        </InfoContainer>
                     </ScheduleItem>
                 ))
             )}
