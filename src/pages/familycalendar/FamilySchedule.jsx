@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 // Mock Data
 const mockSchedules = [
@@ -59,20 +60,29 @@ const mockSchedules = [
     },
 ];
 
-function FamilySchedule({ selectedDate }) {
+const ScheduleContainer = styled.div`
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+`;
+
+const ScheduleItem = styled.div`
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff; /* 배경색 추가 */
+`;
+
+const FamilySchedule = ({ selectedDate }) => {
     const [schedules, setSchedules] = useState([]);
 
     useEffect(() => {
         const fetchSchedules = () => {
             const filteredSchedules = mockSchedules.filter(schedule => {
-                // 선택된 날짜가 일정의 날짜와 같거나,
-                // is_daily가 true일 경우,
-                // is_weekly가 true일 경우 주간 요일과 일치 여부 확인
-                const isSameDate = schedule.schedule_date === selectedDate;
-                const isDaily = schedule.is_daily === true;
-                const isWeekly = schedule.is_weekly === true && new Date(selectedDate).getDay() === 3; // 예: 수요일
-
-                return isSameDate || isDaily || isWeekly;
+                return isScheduleVisible(schedule, selectedDate);
             });
 
             setSchedules(filteredSchedules);
@@ -83,23 +93,33 @@ function FamilySchedule({ selectedDate }) {
         }
     }, [selectedDate]);
 
+    const isScheduleVisible = (schedule, date) => {
+        const scheduleDate = new Date(schedule.schedule_date);
+        const selectedDateObj = new Date(date);
+        
+        // 날짜 비교
+        const isSameDate = scheduleDate.toDateString() === selectedDateObj.toDateString();
+        const isDaily = schedule.is_daily === true;
+        const isWeekly = schedule.is_weekly === true && selectedDateObj.getDay() === 2; // 수요일
+
+        return isSameDate || isDaily || isWeekly;
+    };
+
     return (
-        <div>
-            <h2>가족 일정</h2>
+        <ScheduleContainer>
             {schedules.length === 0 ? (
                 <p>일정이 없습니다.</p>
             ) : (
-                schedules.map((schedule, index) => (
-                    <div key={index} style={{ marginBottom: '10px' }}>
-                        <div><strong>일정 ID:</strong> {schedule.personal_schedule_id}</div>
+                schedules.map(schedule => (
+                    <ScheduleItem key={schedule.personal_schedule_id}>
+                        <div><strong>카테고리:로 추후대체될 부분 _ </strong> {schedule.personal_schedule_id}</div>
                         <div><strong>스케줄명:</strong> {schedule.schedule_title}</div>
-                        <div><strong>날짜:</strong> {schedule.schedule_date}</div>
                         <div><strong>시간:</strong> {schedule.start_time} - {schedule.end_time}</div>
-                    </div>
+                    </ScheduleItem>
                 ))
             )}
-        </div>
+        </ScheduleContainer>
     );
-}
+};
 
 export default FamilySchedule;
