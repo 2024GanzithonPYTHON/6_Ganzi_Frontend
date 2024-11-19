@@ -1,42 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import kakaoLoginBtn from '../../assets/login/kakao_button.png';
 import onbordIcon from '../../assets/login/onboardingIcon.png';
 import downIcon from '../../assets/login/Expand_down_double_light.png';
+import axios from "axios";
 
 const Login = () => {
-    const navigate = useNavigate();
-  
-    const handleKakaoLogin = async () => {
+  const navigate = useNavigate();
+
+  const handleKakaoLogin = () => {
+    const redirectUrl = "<백엔드배포주소>/accounts/kakao/login/";
+    window.location.href = redirectUrl; // 외부 URL 이동은 여전히 window.location.href
+  };
+
+  useEffect(() => {
+    const fetchLoginResponse = async () => {
       try {
-        const response = await fetch("<백엔드배포주소>/accounts/kakao/login/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        // 백엔드가 JSON 응답을 반환한다고 가정
+        const response = await axios.get("<백엔드배포주소>/accounts/kakao/login/", {//백에서 클라이언트에 전달하는 엔드포인트(확인해봐야됨)
+          //withCredentials: true, // 쿠키가 필요하다면 설정
         });
-  
-        if (!response.ok) {
-          throw new Error("Failed to login");
-        }
-  
-        const data = await response.json();
-        if (data.access_token && data.refresh_token) {
-          // 토큰을 로컬스토리지에 저장
-          localStorage.setItem("access_token", data.access_token);
-          localStorage.setItem("refresh_token", data.refresh_token);
-          navigate("/메인페이지 주소"); // 성공 시 리다이렉트
-        } else {
-          alert("로그인에 실패했습니다.");
-          navigate("/Login"); // 실패 시 리다이렉트
+
+        const { message, access_token, refresh_token } = response.data;
+
+        if (access_token && refresh_token) {
+          // 토큰 저장
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("refresh_token", refresh_token);
+
+          // message에 따라 라우팅
+          if (message === "User created and logged in") {
+            navigate("/Register");
+          } else if (message === "Login successful") {
+            navigate("/MyPage");
+          }
         }
       } catch (error) {
-        console.error("Error during Kakao login:", error);
-        alert("로그인 중 오류가 발생했습니다.");
-        navigate("/Login"); // 실패 시 리다이렉트
+        console.error("로그인 응답 처리 중 오류 발생:", error);
       }
     };
+
+    fetchLoginResponse(); // 로그인 결과 처리 함수 호출
+  }, [navigate]);
+
   
     return (
       <div className="background">

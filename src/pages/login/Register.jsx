@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-/* import { useNavigate } from 'react-router-dom'; 리다이렉트 정해지면 활성화 */
+import { useNavigate } from 'react-router-dom';
 import profileUpload from '../../assets/myPage/imageUploader.png';
 import './Register.css'
+import apiClient from '../../api/axiosClient';
 
 function Register() {
-  /* const navigate = useNavigate(); api 붙이면 리다이렉트 위치 정하고 쓰기 */
+  const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
   const [nickname, setNickname] = useState('');
   const [agreements, setAgreements] = useState({
@@ -31,8 +32,6 @@ function Register() {
       [type]: !agreements[type],
     };
 
-
-    // Check if both requiredA and requiredB are true for enabling "all"
     if (type === 'all') {
       updatedAgreements.requiredA = !agreements.all;
       updatedAgreements.requiredB = !agreements.all;
@@ -44,6 +43,28 @@ function Register() {
     }
 
     setAgreements(updatedAgreements);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      // 데이터 준비
+      const profileData = {
+        nickname,
+        profile_img: profileImage, // 이미지 업로드된 파일의 URL 혹은 이미지 데이터
+        profile_agreement: agreements.requiredA && agreements.requiredB, // 필수 약관이 동의된 경우만 true
+      };
+
+      const response = await apiClient.patch('/account/profile/', profileData);
+
+      if (response.status === 200) {
+        console.log('프로필 업데이트 성공:', response.data);
+        navigate('/메인페이지'); // 프로필 등록 성공 후 이동할 페이지
+      } else {
+        console.error('프로필 업데이트 실패:', response.data);
+      }
+    } catch (error) {
+      console.error('프로필 업데이트 중 오류 발생:', error);
+    }
   };
 
   const isRegisterButtonEnabled = profileImage && agreements.requiredA && agreements.requiredB;
@@ -103,7 +124,7 @@ function Register() {
               checked={agreements.requiredA}
               onChange={() => handleAgreementChange('requiredA')}
             />
-            &nbsp;&nbsp;&nbsp;&nbsp;(필수) 개인회원 약관에 동의
+            &nbsp;&nbsp;&nbsp;&nbsp;(필수) 개인회원 약관에  동의
           </label>
           <label className='single-agree'>
             <input
@@ -126,7 +147,7 @@ function Register() {
         </div>
       </section>
 
-      <button disabled={!isRegisterButtonEnabled} className='register-button'>프로필 등록하기</button>
+      <button disabled={!isRegisterButtonEnabled} className='register-button' onClick={handleSubmit}>프로필 등록하기</button>
     </div>
   );
 }

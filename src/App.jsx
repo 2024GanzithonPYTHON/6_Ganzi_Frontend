@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react'; /* useEffect 추가 */
+import { BrowserRouter as Router, Route, Routes, Navigate /* Navigate 추가 */ } from 'react-router-dom';
 import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
@@ -36,6 +36,14 @@ const Footer = styled.div`
 `;
 
  function App() {
+  useEffect(() => {
+    // refresh_token 존재 여부 확인 +(로그인 상태 판단 뭘로하는지 물어봐야됨)
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (refreshToken) {
+      window.location.href = "/MyPage"; //우선 구현된 페이지
+    }
+  }, []);
+
   return (
     <div id="app"> 
       <Router>
