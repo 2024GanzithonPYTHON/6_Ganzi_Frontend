@@ -22,10 +22,11 @@ const LogoFix = styled.div`
 `
 // 로고와 간격을 주기위한 패딩
 const Content = styled.div`
-    padding-top: 100px; /* 로고 높이만큼 패딩 추가 (데스크탑) */
-    @media (max-width: 420px) {
-        padding-top: 60px; /* 로고 높이만큼 패딩 추가 (모바일) */
-    }
+    padding-top: 120px; /* 로고 높이만큼 패딩 추가 (데스크탑) */
+    padding-bottom: 60px; /* 하단 내비게이션 바 높이만큼 패딩 추가 (모바일) */
+    @media (max-width: 393px) {
+        padding-top: 60px; /* 모바일에서는 로고 높이만큼 패딩 추가 */
+        padding-bottom: 50px; /* 모바일에서는 하단 내비게이션 바 높이만큼 패딩 추가 */
 `;
 
 const Footer = styled.div`

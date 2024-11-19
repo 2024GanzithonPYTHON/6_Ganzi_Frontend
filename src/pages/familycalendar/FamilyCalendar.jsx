@@ -1,17 +1,27 @@
+import React, {useState} from 'react';
+import styled from 'styled-components';
 import Calendar from "./Calendar";
+import FamilySchedule from "./FamilySchedule";
 
-function FamilySchedule() {
+
+
+function FamilyCalendar() {
+    const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜 상태 추가
+
     const handleDateSelect = (date) => {
-        console.log('가족 일정 기록: ', date);
-        // 예시입니당~ 이런식으로 handle을 관리하면 될 것 같아요
+        setSelectedDate(date); // 선택된 날짜를 상태로 저장
     };
 
     return (
         <div>
             <h2>가족 일정 기록</h2>
             <Calendar onDateSelect={handleDateSelect} />
+            {/* 선택된 날짜를 FamilySchedule에 전달 */}
+            {selectedDate && (
+            <FamilySchedule selectedDate={selectedDate.toISOString().split('T')[0]} />
+            )}
+
         </div>
     );
 }
-
-export default FamilySchedule;
+export default FamilyCalendar;

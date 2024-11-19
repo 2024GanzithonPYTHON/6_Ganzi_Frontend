@@ -7,7 +7,7 @@ const CalendarContainer = styled.div`
     display: flex; 
     flex-direction: column; /* 세로 방향으로 정렬 */
     align-items: center; /* 중앙 정렬 */
-    padding: 20px;
+    padding: 10px;
     width: 393px; 
 `;
 
@@ -91,10 +91,18 @@ function Calendar({ onDateSelect }) {
     return (
         <CalendarContainer>
             <Navigation>
-                <YearMonthContainer>
-                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() - 1)))}>&lt;</Button>
+            <YearMonthContainer>
+                <Button onClick={() => setDate(prev => {
+                    const newDate = new Date(prev);
+                    newDate.setMonth(newDate.getMonth() - 1);
+                    return newDate;
+                                })}>&lt;</Button>
                     <YearMonth>{format(date, 'yyyy년 MM월')}</YearMonth>
-                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() + 1)))}>&gt;</Button>
+                    <Button onClick={() => setDate(prev => {
+                        const newDate = new Date(prev);
+                        newDate.setMonth(newDate.getMonth() + 1);
+                        return newDate;
+                    })}>&gt;</Button>
                 </YearMonthContainer>
             </Navigation>
             <WeekdayContainer>
