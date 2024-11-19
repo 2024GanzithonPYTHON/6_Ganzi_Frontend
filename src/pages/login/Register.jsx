@@ -124,7 +124,7 @@ function Register() {
               checked={agreements.requiredA}
               onChange={() => handleAgreementChange('requiredA')}
             />
-            &nbsp;&nbsp;&nbsp;&nbsp;(필수) 개인회원 약관에  동의
+            &nbsp;&nbsp;&nbsp;&nbsp;(필수) 개인회원 약관에 동의
           </label>
           <label className='single-agree'>
             <input
