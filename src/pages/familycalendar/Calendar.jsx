@@ -92,9 +92,17 @@ function Calendar({ onDateSelect }) {
         <CalendarContainer>
             <Navigation>
                 <YearMonthContainer>
-                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() - 1)))}>&lt;</Button>
+                <Button onClick={() => setDate(prev => {
+                    const newDate = new Date(prev);
+                    newDate.setMonth(newDate.getMonth() - 1);
+                    return newDate;
+                                })}>&lt;</Button>
                     <YearMonth>{format(date, 'yyyy년 MM월')}</YearMonth>
-                    <Button onClick={() => setDate(prev => new Date(prev.setMonth(prev.getMonth() + 1)))}>&gt;</Button>
+                    <Button onClick={() => setDate(prev => {
+                        const newDate = new Date(prev);
+                        newDate.setMonth(newDate.getMonth() + 1);
+                        return newDate;
+                    })}>&gt;</Button>
                 </YearMonthContainer>
             </Navigation>
             <WeekdayContainer>
