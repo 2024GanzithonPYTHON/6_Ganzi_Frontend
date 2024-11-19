@@ -1,0 +1,5 @@
+{
+    "message": "Login successful",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2ODc4OTU3MDB9.-jBKoE3z68Gz4A8jgfZT88vTzKZ4O5CbAX_zNZ_d7xo",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2ODg1Mzk3MDB9.J-xNBVtG4v3Nyz-yMK0UsS-YT5Cb5oPzOE4fGiwDbnQ"
+}

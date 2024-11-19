@@ -1,12 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import React, { useEffect } from 'react'; /* useEffect 추가 */
+import { BrowserRouter as Router, Route, Routes, Navigate /* Navigate 추가 */ } from 'react-router-dom';
 import Register from './pages/login/Register';
 import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
-
+import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
+import Loading from './pages/scheduleRequest/Loading';
+import LoginPage from './pages/login/Login';
 import './App.css'
 import Logo from './global/Logo';
 import BottomNav from './global/BottomNav';
@@ -35,6 +36,14 @@ const Footer = styled.div`
 `;
 
  function App() {
+  useEffect(() => {
+    // refresh_token 존재 여부 확인 +(로그인 상태 판단 뭘로하는지 물어봐야됨)
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (refreshToken) {
+      window.location.href = "/MyPage"; //우선 구현된 페이지
+    }
+  }, []);
+
   return (
     <div id="app"> 
       <Router>
@@ -48,6 +57,9 @@ const Footer = styled.div`
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
+          <Route path="/SingleNroutine" element={<SelectRoutine />} />
+          <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
+          <Route path="/Login" element={<LoginPage />} />
           {/* 다른 Route 추가 */}
         </Routes>
         </Content>
