@@ -91,7 +91,7 @@ function Calendar({ onDateSelect }) {
     return (
         <CalendarContainer>
             <Navigation>
-                <YearMonthContainer>
+            <YearMonthContainer>
                 <Button onClick={() => setDate(prev => {
                     const newDate = new Date(prev);
                     newDate.setMonth(newDate.getMonth() - 1);

@@ -1,5 +1,5 @@
 import Calendar from "./Calendar";
-import FamilySchedule from "./FamilySchedule";
+
 
 function FamilyRecord() {
     const handleDateSelect = (date) => {
@@ -11,7 +11,7 @@ function FamilyRecord() {
         <div>
             <h2>가족 일정 기록</h2>
             <Calendar onDateSelect={handleDateSelect} />
-            <FamilySchedule selectedDate={yourSelectedDate} />
+           
         </div>
     );
 }
