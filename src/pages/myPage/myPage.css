@@ -1,9 +1,200 @@
+.mypage-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    color: black;
+  }
+  
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  
+  .nickname {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .email {
+    font-size: 1rem;
+    color: #555;
+  }
 
+  .badge-list-container {
+    width: 100%; /* 가로폭 전체 사용 */
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    white-space: nowrap; /* 배지들이 한 줄로 나열되도록 설정 */
+    padding: 10px 0; /* 위아래 여백 */
+  }
+  
+  .badge-list {
+    display: flex;
+    gap: 20px; /* 배지들 사이의 간격 */
+  }
+  
+  .badge-item {
+    text-align: center; /* 배지 이름과 이미지를 중앙 정렬 */
+    min-width: 120px; /* 각 배지의 최소 너비 */
+  }
+  
+  .badge-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain; /* 배지가 깨지지 않도록 비율 맞추기 */
+  }
+  
+  .badge-name {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
 
-.back-rectangle {/*최하단에서 위로 올리자*/
+/* 드래그 가능하게 하기 */
+.badge-list-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .badge-list-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .badge-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+/*로그아웃 버튼 css는 안지움*/
+.logout-button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.logout-button span {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 스케줄 관리 영역 */
+.schedule-management {
+    padding: 20px;
+  }
+  
+  /* 상단 스케줄 관리 타이틀과 버튼 */
+  .schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .schedule-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .received-schedule-button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #007bff;
+    padding: 8px 12px;
+    border-radius: 30px;
+    color: #007bff;
+  }
+  
+  .received-schedule-button img {
+    width: 20px; /* 아이콘 크기 조정 */
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+  /* 세 개의 버튼 (받은 스케쥴, 보낸 스케쥴, 거절한 스케쥴) */
+  .schedule-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .schedule-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  .schedule-button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* 내 캘린더 확인하기 버튼 */
+  .calendar-button {
+    margin-top: 20px;
+  }
+  
+  .calendar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    width: 250px; /* 기본 너비 설정, 나중에 수정 가능 */
+  }
+  
+  .calendar-link img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+  .calendar-link span {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .back-rectangle {/*최하단에서 위로 올리자*/
     width: 393px;
     height: 286px;
     background-color: #F8D785;
     margin-top: -108px;
     z-index: -1;
+  }
+
+  .badge-rectangle {
+    width: 359px;
+    height: 119px;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
