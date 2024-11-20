@@ -81,7 +81,7 @@ const ScheduleItem = styled.div`
 
     &:hover {
         border: 0px solid #ffff;
-        background-color: #f0e68c; /* 호버 시 배경색 변경 */
+        background-color:  #F8D785; 
     }
 `;
 
