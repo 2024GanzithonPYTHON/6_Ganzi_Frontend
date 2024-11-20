@@ -7,6 +7,7 @@ import BadgeList from "../../badge/badgeList";
 import logoutImage from '../../assets/mypage/logout.png';
 import rightWay from '../../assets/mypage/rightAngleBracket.png';
 import calButton from '../../assets/mypage/calendarButton.png';
+import FamilyList from './FamilyList'
 
 const dummyProfile = {
   nickname: "마라맛아기사자",
@@ -31,15 +32,15 @@ const dummyProfile = {
     ],
 	family: [
 		{
-			profile_img: "http://127.0.0.1:8000/media/user_img/20241117/Group_396.png",
+			profile_img: calButton,
 			nickname: "largeredjade"
 		},
 		{
-			profile_img: "http://127.0.0.1:8000/media/user_img/20241117/Group_396.png",
+			profile_img: calButton,
 			nickname: "김민주"
 		},
 		{
-			profile_img: "http://127.0.0.1:8000/media/user_img/20241117/Group_396.png",
+			profile_img: calButton,
 			nickname: "현지우"
 		}
 	]
@@ -129,7 +130,13 @@ const MyPage = () => {
               <span>내 캘린더 확인하기</span>
           </Link>
           </div>
-        </div>
+        </div>  
+          <div>
+            <h2>Family Members</h2>
+            <FamilyList family={profile.family} />
+          </div>
+        <div className="back-rectangle"></div>
+        <div className="badge-rectangle"></div>
     </div>
   );
 };

@@ -1,0 +1,35 @@
+/* FamilyList.css */
+.family-list-container {
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    white-space: nowrap; /* 자식 요소를 한 줄로 배치 */
+    padding: 10px 0;
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+  }
+  
+  .family-list {
+    display: flex;
+    gap: 15px; /* 각 구성원 간의 간격 */
+  }
+  
+  .family-item {
+    display: flex;
+    flex-direction: column; /* 세로 방향 정렬 */
+    align-items: center; /* 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    flex-shrink: 0; /* 크기가 작아지지 않도록 고정 */
+  }
+  
+  .family-profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* 원형 이미지 */
+    object-fit: cover; /* 이미지 크기 조정 */
+    margin-bottom: 5px; /* 닉네임과 간격 */
+  }
+  
+  .family-nickname {
+    font-size: 14px;
+    color: #333; /* 적절한 색상으로 변경 가능 */
+  }
+  
