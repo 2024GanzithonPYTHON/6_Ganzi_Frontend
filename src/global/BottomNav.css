@@ -26,18 +26,25 @@ nav > button img {
       background-color: #ffffff; /* 마찬가지로 피그마에 맞춰두겠습니다~! */
     }
     /*nav안의 버튼*/
-    nav > button {
+    nav > .nav-button {
       width: 59px; /* 데스크탑에서 버튼 크기 유지 */
       height: 67px;
       margin: 0 6.5px; /*좌우 간격 6.5px */
       font-size: 11px;
       background-color: #F4F4F4;
 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; /* 수직 정렬 */
+      text-decoration: none; /* 링크 스타일 제거 */
+      color: inherit; /* 부모 요소의 색상 상속 */
+
       border-radius: 10px;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     }
-    nav > button:hover {
-      border : 0.5px solid #FFB600;
+    nav > .nav-button:hover {
+      border : 0px solid #FFB600;
       background: var(--Color-3, #F8D785);
     }
   }
@@ -50,19 +57,25 @@ nav > button img {
       width: 393px;
     }
   
-    nav > button {
+    nav > .nav-button {
       width: 59px; /* 데스크탑에서 버튼 크기 유지 */
       height: 67px;
       margin: 0 6.5px; /*좌우 간격 6.5px */
       font-size: 11px;
       background-color: #F4F4F4;
 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; /* 수직 정렬 */
+      text-decoration: none; 
+      color: inherit; 
       border-radius: 10px;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     }
 
-    nav > button:hover {
-      border : 0.5px solid #FFB600;
+    nav > .nav-button:hover {
+      border : 0px solid #FFB600;
       background: var(--Color-3, #F8D785);
     }
   }
