@@ -1,124 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './MyPage.css';
-import logoutIcon from '../../assets/myPage/logout.png';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import apiClient from "../../api/axiosClient";
+import badgeMapping from "../../constants/badgeMapping";
+import "./MyPage.css";
 
-function MyPage() {
-  const [nickname, setNickname] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
-  const [badges, setBadges] = useState([]);
-  const [family, setFamily] = useState([]);
+const ProfilePage = () => {
+  const [profile, setProfile] = useState({
+    profile_img: "",
+    nickname: "",
+    email: "",
+    badges: [],
+    family: []
+  });
 
-  // API 호출
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const response = await fetch('<백엔드배포주소>/accounts/myprofile/', {
-          method: 'GET',
-          headers: {
-            Authorization: 'Bearer ' + '유저의 access token 값',
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setNickname(data.nickname);
-          setProfileImage(data.profile_img);
-          setBadges(data.badges);
-          setFamily(data.family);
-        } else {
-          console.error('프로필 데이터를 불러오는 중 오류가 발생했습니다.');
-        }
+        const response = await apiClient.get("/accounts/myprofile/");
+        setProfile(response.data);
       } catch (error) {
-        console.error('네트워크 오류:', error);
+        console.error("Error fetching profile data:", error);
       }
     };
 
     fetchProfileData();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await apiClient.post("/accounts/kakao/logout/");
+      alert("로그아웃 되었습니다.");
+      // 로그아웃 이후 원하는 행동 추가 (e.g., 홈으로 리다이렉트)
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
+  if (!profile) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className="my-page">
+    <div className="profile-page">
       {/* 프로필 섹션 */}
       <div className="profile-section">
-        <div className="profile-image">
-          <img
-            src={profileImage || 'https://via.placeholder.com/150'}
-            alt="프로필 이미지"
-            className="profile-img"
-          />
-        </div>
-        <div className="profile-info">
-          <h2 className="nickname">{nickname || '닉네임 불러오는 중...'}</h2>
-          <Link to="/EditProfile" className="button-edit-profile">
-            프로필 수정하기
-          </Link>
-          <button className="logout-button">
-            <img src={logoutIcon} alt="Logout Icon" className="logout-icon" />
-            <span className="logout-text">로그아웃</span>
-          </button>
-        </div>
+        <img
+          src={profile.profile_img}
+          alt={`${profile.nickname}의 프로필`}
+          className="profile-img"
+        />
+        <h1>{profile.nickname}</h1>
+        <p>{profile.email}</p>
+        <Link to="/프로필수정" className="btn">프로필 수정하기</Link>
+        <button onClick={handleLogout} className="btn logout-btn">로그아웃</button>
       </div>
 
-      {/* 내가 획득한 배지 섹션 */}
-      <div className="badge-section">
-        <h3>내가 획득한 배지</h3>
-        <div className="badge-container">
-          {badges.length > 0 ? (
-            badges.map((badge, index) => (
-              <div key={index} className="badge-item">
-                {badge.badge_name}
+      {/* 배지 섹션 */}
+      <div className="badges-section">
+        <h2>내가 획득한 배지</h2>
+        <div className="badges-list">
+            {profile.badges && profile.badges.map((badge, index) => {
+            const badgeInfo = badgeMapping[badge.badge_name];
+            return (
+              <div key={index} className="badge">
+                <img src={badgeInfo.img} alt={badge.badge_name} />
+                <p>{badge.badge_name}</p>
               </div>
-            ))
-          ) : (
-            <p>획득한 배지가 없습니다.</p>
-          )}
+            );
+          })}
         </div>
       </div>
 
-      {/* 스케줄 관리 섹션 */}
+      {/* 스케줄 섹션 */}
       <div className="schedule-section">
-        <h3>스케줄 관리하기</h3>
-        <div className="schedule-links">
-          <Link to="/received-schedule">받은 스케줄</Link>
-          <Link to="/sent-schedule">보낸 스케줄</Link>
-          <Link to="/rejected-schedule">거절한 스케줄</Link>
-        </div>
-        <Link to="/calendar" className="calendar-link">
-          <div className="calendar-icon"></div>
-          <span>내 캘린더 확인하기</span>
-        </Link>
+        <h2>스케줄 관리</h2>
+        <Link to="/스케쥴관리하기" className="btn">스케쥴 관리하기</Link>
+        <Link to="/받은스케쥴" className="btn">받은 스케쥴</Link>
+        <Link to="/보낸스케쥴" className="btn">보낸 스케쥴</Link>
+        <Link to="/거절한스케쥴" className="btn">거절한 스케쥴</Link>
+        <Link to="/내캘린더확인하기" className="btn">내 캘린더 확인하기</Link>
       </div>
 
-      {/* 우리 가족 섹션 */}
+      {/* 가족 섹션 */}
       <div className="family-section">
-        <h3>우리 가족</h3>
-        <div className="family-members">
-          {family.length > 0 ? (
-            family.map((member, index) => (
-              <div key={index} className="family-member">
-                <img
-                  src={member.profile_img || 'https://via.placeholder.com/100'}
-                  alt={`${member.nickname}의 프로필`}
-                  className="family-image"
-                />
-                <p>{member.nickname}</p>
-              </div>
-            ))
-          ) : (
-            <p>등록된 가족 구성원이 없습니다.</p>
-          )}
-          <Link to="/add-family" className="add-family">
-            +
-          </Link>
+        <h2>우리 가족</h2>
+        <div className="family-list">
+          {profile.family.map((member, index) => (
+            <div key={index} className="family-member">
+              <img src={member.profile_img} alt={member.nickname} />
+              <p>{member.nickname}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default MyPage;
-
+export default ProfilePage;
 
 /*
 import React from 'react';
