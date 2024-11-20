@@ -46,7 +46,7 @@
     display: flex; /* 제목과 버튼을 한 줄에 배치 */
     flex-direction: column;
     align-items: flex-start; /* 상단 기준으로 정렬 */
-  
+    margin-bottom: 30px;
   }
   
   .nickTitle {
@@ -58,10 +58,37 @@
       padding: 10px;
       width: 328px;
       font-size: 16px;
-      margin-bottom: 25px;
+      margin-bottom: 5px;
       border-radius: 10px;
         border: 0.3px solid #d9d9d9;
     }
+
+    .emailContainer {
+      display: flex; /* 제목과 버튼을 한 줄에 배치 */
+      flex-direction: column;
+      align-items: flex-start; /* 상단 기준으로 정렬 */
+    
+    }
+    
+    .emailTitle {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .emailTitle-explain {
+      font-size: 13px;
+      font-weight: 100;
+      margin-bottom: 4px;
+    }
+    
+    .email-input {
+        padding: 10px;
+        width: 328px;
+        font-size: 16px;
+        margin-bottom: 55px;
+        border-radius: 10px;
+          border: 0.3px solid #d9d9d9;
+      }
 
     .agreeContainer {
         display: flex; /* 제목과 버튼을 한 줄에 배치 */
@@ -105,7 +132,15 @@
     color: red;
     font-weight: 500;
     margin-top: 9px;
-    margin-bottom: 68px;
+    margin-bottom: 1px;
+}
+
+.must-notice2 {
+  font-size: 11px;
+  color: red;
+  font-weight: 500;
+  margin-top: 3px;
+  margin-bottom: 68px;
 }
 
 .register-button {

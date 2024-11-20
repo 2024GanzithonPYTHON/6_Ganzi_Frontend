@@ -8,6 +8,7 @@ function Register() {
   const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
   const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
   const [agreements, setAgreements] = useState({
     all: false,
     requiredA: false,
@@ -23,7 +24,18 @@ function Register() {
   };
 
   const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
+    const input = e.target.value;
+
+  // 입력값이 10자 이하일 때만 상태 업데이트
+    if (input.length <= 10) {
+     setNickname(input);
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+
+    
   };
 
   const handleAgreementChange = (type) => {
@@ -52,6 +64,7 @@ function Register() {
         nickname,
         profile_img: profileImage, // 이미지 업로드된 파일의 URL 혹은 이미지 데이터
         profile_agreement: agreements.requiredA && agreements.requiredB, // 필수 약관이 동의된 경우만 true
+        invited_user: email,
       };
 
       const response = await apiClient.patch('/account/profile/', profileData);
@@ -98,10 +111,24 @@ function Register() {
           <div className='nickTitle'>닉네임</div>
           <input
             type="text"
-            placeholder="닉네임은 열 글자를 넘을 수 없습니다." 
+            placeholder="e.g 귀여운 막내" 
             className="nickname-input"
             value={nickname}
             onChange={handleNicknameChange}
+          />
+        </div>
+      </section>
+
+      <section>
+        <div className='emailContainer'>
+          <div className='emailTitle'>초대한 가족 이메일 입력하기</div>
+          <div className='emailTitle-explain'>이메일을 통해 가족 캘린더에 참여합니다.</div>
+          <input
+            type="text"
+            placeholder="초대한 가족 이메일 주소를 입력해 주세요." 
+            className="email-input"
+            value={email}
+            onChange={handleEmailChange}
           />
         </div>
       </section>
@@ -143,7 +170,8 @@ function Register() {
             &nbsp;&nbsp;&nbsp;&nbsp;(선택) 이메일 등 마케팅 정보 수신 동의
           </label>
         </div>
-        <div className='must-notice'>*필수 약관 미동의, 정보 미등록 시 가입이 어렵습니다.</div>
+        <div className='must-notice'>*&nbsp;&nbsp;필수 약관 미동의, 정보 미등록 시 가입이 어렵습니다.</div>
+        <div className='must-notice2'>**초대한 가족 이메일 미입력 시 단독으로 가정을 구성합니다. </div>
         </div>
       </section>
 
