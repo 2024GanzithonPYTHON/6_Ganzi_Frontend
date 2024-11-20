@@ -11,9 +11,9 @@
 }
 
 .smaller-text {
-  font-size: 9px; /* 폰트 크기 설정 */
-  line-height: normal; /* 줄 간격 조정, 필요시 */
-  text-align: center; /* 텍스트 중앙 정렬, 필요시 */
+  font-size: 9px;
+  line-height: normal; 
+  text-align: center; 
 }
 
 
