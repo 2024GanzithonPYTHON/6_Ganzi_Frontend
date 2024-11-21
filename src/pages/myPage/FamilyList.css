@@ -34,3 +34,25 @@
     width: 135px;
   }
   
+  /* 스크롤바 전체 영역 */
+.family-list-container::-webkit-scrollbar {
+  height: 6px; /* 스크롤바 높이 */
+  background-color: transparent; /* 기본 배경 제거 */
+}
+
+/* 스크롤바의 트랙 (배경) */
+.family-list-container::-webkit-scrollbar-track {
+  background-color: #f9f9f9; /* 트랙 배경 색상 */
+  border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 스크롤바의 핸들 (움직이는 부분) */
+.family-list-container::-webkit-scrollbar-thumb {
+  background-color: #fff; /* 핸들 색상 */
+  border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 핸들에 호버 효과 */
+.family-list-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(218, 218, 218, 0.5); /* 호버 시 색상 진하게 */
+}
