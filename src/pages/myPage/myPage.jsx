@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import apiClient from "../../api/axiosClient";
-import "./MyPage.css";
+import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
 import logoutImage from '../../assets/mypage/logout.png';
 import rightWay from '../../assets/mypage/rightAngleBracket.png';
