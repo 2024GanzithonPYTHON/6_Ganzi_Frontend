@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import apiClient from "../../api/axiosClient";
 import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
-import logoutImage from '../../assets/mypage/logout.png';
+import logoutImage from '../../assets/myPage/logout.png';
 import rightWay from '../../assets/mypage/rightAngleBracket.png';
 import calButton from '../../assets/mypage/calendarButton.png';
 
