@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'; /* useEffect 추가 */
 import { BrowserRouter as Router, Route, Routes, Navigate /* Navigate 추가 */ } from 'react-router-dom';
 import Register from './pages/login/Register';
-import MyPage from './pages/myPage/MyPage';
+import MyPage from './pages/myPage/myPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
