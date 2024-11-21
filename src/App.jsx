@@ -5,6 +5,7 @@ import MyPage from './pages/myPage/MyPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
+import MyMemo from './pages/Memo/MyMemo';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import Loading from './pages/scheduleRequest/Loading';
 import LoginPage from './pages/login/Login';
@@ -22,7 +23,7 @@ const LogoFix = styled.div`
 `
 // 로고와 간격을 주기위한 패딩
 const Content = styled.div`
-    padding-top: 120px; /* 로고 높이만큼 패딩 추가 (데스크탑) */
+    padding-top: 50px;
     padding-bottom: 60px; /* 하단 내비게이션 바 높이만큼 패딩 추가 (모바일) */
     @media (max-width: 393px) {
         padding-top: 60px; /* 모바일에서는 로고 높이만큼 패딩 추가 */
@@ -58,6 +59,7 @@ const Footer = styled.div`
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
+          <Route path = "/MyMemo" element = {<MyMemo/>}/>
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
           <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
