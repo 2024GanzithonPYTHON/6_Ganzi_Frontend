@@ -5,8 +5,8 @@ import apiClient from "../../api/axiosClient";
 import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
 import logoutImage from '../../assets/myPage/logout.png';
-import rightWay from '../../assets/mypage/rightAngleBracket.png';
-import calButton from '../../assets/mypage/calendarButton.png';
+import rightWay from '../../assets/myPage/rightAngleBracket.png';
+import calButton from '../../assets/myPage/calendarButton.png';
 
 const dummyProfile = {
   nickname: "마라맛아기사자",
