@@ -9,31 +9,32 @@ const BottomNav = () => {
         <nav className = "wrapper">
             <Link to="/" className="nav-button">
                 {/* 얘만 이미지에 뒷배경 있음 . svg 해도 마찬가지*/}
-                <img src = "src\assets\Global\BottomNav\mycalendar.svg" alt = "내 캘린더"/>
+                <img src = "public\assets\Global\BottomNav\MyCalendar.svg" alt = "내 캘린더"/>
+
                 <br/>
                 내 캘린더
             </Link>
 
             <Link to="/FamilyCalendar" className="nav-button">
-                    <img src = "src\assets\Global\BottomNav\fam_cal.svg" alt = "가족 캘린더"/>
+                    <img src = "public\assets\Global\BottomNav\fam_cal.svg" alt = "가족 캘린더"/>
                     <br/>
                     가족 캘린더
             </Link>
 
             <Link to="/" className="nav-button">
-                <img src = "src\assets\Global\BottomNav\home.svg" alt = "홈"/>
+                <img src = "public\assets\Global\BottomNav\home.svg" alt = "홈"/>
                 <br/>
                 홈
             </Link>
 
             <Link to="/" className="nav-button">
-            <img src="src/assets/Global/BottomNav/register.svg" alt="캘린더등록" />
+            <img src="public/assets/Global/BottomNav/register.svg" alt="캘린더등록" />
             <br />
             <div className="smaller-text">가족일정 등록</div> {/* 작은 텍스트 클래스 적용 */}
             </Link>
 
             <Link to="/MyPage" className="nav-button">
-                <img src = "src\assets\Global\BottomNav\profile.svg" alt = "프로필"/>
+                <img src = "public\assets\Global\BottomNav\profile.svg" alt = "프로필"/>
                 <br/>
                 내 프로필
             </Link>
