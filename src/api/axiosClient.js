@@ -5,7 +5,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "<백엔드배포주소>",
+  baseURL: "http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/",
   /* 우리는 토큰 방식이라 일단 필요한지 고민중 withCredentials: true, // 쿠키 및 인증 정보를 요청에 포함 */
 });
 
