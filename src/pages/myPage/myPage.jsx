@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import apiClient from "../../api/axiosClient";
 import "./MyPage.css";
-import BadgeList from "../../badge/badgeList";
+import BadgeList from "../../badge/BadgeList";
 import logoutImage from '../../assets/mypage/logout.png';
 import rightWay from '../../assets/mypage/rightAngleBracket.png';
 import calButton from '../../assets/mypage/calendarButton.png';
 import FamilyList from './FamilyList'
 
 const dummyProfile = {
-  nickname: "마라맛아기사자",
+  nickname: "일이삼사오륙칠팔구십",
   email: "useremail@naver.com",
-  profile_img: "https://via.placeholder.com/120", // 임시 이미지
+  profile_img: calButton, // 임시 이미지
   badges: [
         {
             badge_name: "밥상마스터"
@@ -33,11 +33,11 @@ const dummyProfile = {
 	family: [
 		{
 			profile_img: calButton,
-			nickname: "largeredjade"
+			nickname: "일이삼사오륙칠팔구십"
 		},
 		{
 			profile_img: calButton,
-			nickname: "김민주"
+			nickname: "일이삼사오륙칠팔구십"
 		},
 		{
 			profile_img: calButton,
@@ -90,18 +90,20 @@ const MyPage = () => {
           alt={`${profile.nickname}'s profile`}
           className="profile-img"
         />
-        <h2 className="nickname">{profile.nickname}</h2>
-        <p className="email">{profile.email}</p>
-        <button className="edit-profile-btn" onClick={handleEditProfile}>
-          프로필 수정하기
-        </button>
-        <button className="logout-button" onClick={handleLogout}>
+        <div className="right-sec">
+          <div className="nickname">{profile.nickname}</div>
+          <div className="email">{profile.email}</div>
+            <button className="edit-button" onClick={handleEditProfile}>
+            프로필 수정하기
+            </button>
+          <button className="logout-button" onClick={handleLogout}>
             <img src={logoutImage} alt="Logout" className="logout-icon" />
             <span>로그아웃</span>
-        </button>
+          </button>
+        </div>
       </div>
       <div className="badges-section">
-        <h3>Badges</h3>
+        <div className="badge-title">내가 획득한 배지</div>
         {profile.badges && profile.badges.length > 0 ? (
           <BadgeList badges={profile.badges} /> // 배지 목록 표시
         ) : (
@@ -111,17 +113,16 @@ const MyPage = () => {
 
         <div className="schedule-management">
          <div className="schedule-header">
-            <h3 className="schedule-title">스케쥴 관리하기</h3>
+            <div className="schedule-title">스케쥴 관리하기</div>
             <Link to="/받은스케쥴" className="received-schedule-button">
               <img src={rightWay} alt="받은 스케쥴" />
-              <span>받은스케쥴</span>
             </Link>
           </div>
 
           <div className="schedule-buttons">
-         <Link to="/받은스케쥴" className="schedule-button">받은 스케쥴</Link>
-         <Link to="/보낸스케쥴" className="schedule-button">보낸 스케쥴</Link>
-         <Link to="/거절한스케쥴" className="schedule-button">거절한 스케쥴</Link>
+         <Link to="/받은스케쥴" className="scheduled-button">받은 스케쥴</Link>
+         <Link to="/보낸스케쥴" className="scheduled-button">보낸 스케쥴</Link>
+         <Link to="/거절한스케쥴" className="scheduled-button">거절한 스케쥴</Link>
         </div>
 
           <div className="calendar-button">
@@ -132,7 +133,7 @@ const MyPage = () => {
           </div>
         </div>  
           <div>
-            <h2>Family Members</h2>
+            <div className="family-title">우리 가족</div>
             <FamilyList family={profile.family} />
           </div>
         <div className="back-rectangle"></div>

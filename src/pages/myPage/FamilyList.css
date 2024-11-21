@@ -9,7 +9,7 @@
   
   .family-list {
     display: flex;
-    gap: 15px; /* 각 구성원 간의 간격 */
+    gap: 0px; /* 각 구성원 간의 간격 */
   }
   
   .family-item {
@@ -21,8 +21,8 @@
   }
   
   .family-profile-img {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%; /* 원형 이미지 */
     object-fit: cover; /* 이미지 크기 조정 */
     margin-bottom: 5px; /* 닉네임과 간격 */
@@ -31,5 +31,6 @@
   .family-nickname {
     font-size: 14px;
     color: #333; /* 적절한 색상으로 변경 가능 */
+    width: 135px;
   }
   

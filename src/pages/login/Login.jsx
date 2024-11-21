@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
-    const redirectUrl = "<백엔드배포주소>/accounts/kakao/login/";
+    const redirectUrl = "http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/accounts/kakao/login/";
     window.location.href = redirectUrl; // 외부 URL 이동은 여전히 window.location.href
   };
 
@@ -18,9 +18,11 @@ const Login = () => {
     const fetchLoginResponse = async () => {
       try {
         // 백엔드가 JSON 응답을 반환한다고 가정
-        const response = await axios.get("<백엔드배포주소>/accounts/kakao/login/", {//백에서 클라이언트에 전달하는 엔드포인트(확인해봐야됨)
+        const response = await axios.get("http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/", {//백에서 클라이언트에 전달하는 엔드포인트(확인해봐야됨)
           //withCredentials: true, // 쿠키가 필요하다면 설정
         });
+
+        console.log("응답 데이터:", response.data);
 
         const { message, access_token, refresh_token } = response.data;
 
