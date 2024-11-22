@@ -1,38 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 
 const EditDateContainer = styled.div`
-    margin-top: 10px;
+    display: flex;
+    justify-content: center; // 수평 중앙 정렬
+    align-items: center; // 수직 중앙 정렬
+    height: 100vh; // 100% 화면 높이
 `;
 
-function EditDate({ date, onToggleEdit }) {
-    const [schedule, setSchedule] = useState('');
+const ToggleButtonContainer = styled.div`
+    display: flex;
+    position: relative; // 상대 위치 설정
+    width: 285px;
+    height: 42px;
+    margin-bottom: 10px;
+    background-color: #F8D785;
+    border-radius: 20px; // 컨테이너의 모서리 둥글게
+    overflow: hidden; // 버튼이 컨테이너를 넘어가지 않도록 설정
+`;
 
-    useEffect(() => {
-        // 이곳에서 날짜에 대한 기존 스케줄을 불러올 수 있음
-        // 예를 들어, API 호출로 기존 스케줄을 가져오는 로직을 추가할 수 있습니다.
-        // setSchedule(기존 스케줄);
-    }, [date]);
+const ToggleButton = styled.button`
+    flex: 1; // 버튼이 동일한 너비로 늘어나도록 설정
+    padding: 5px;
+    color: black;
+    border: none;
+    border-radius: 0; // 버튼의 모서리는 둥글지 않게
+    cursor: pointer;
+    background-color: transparent; // 기본 배경색 투명
+    transition: background-color 0.3s; // 배경색 전환 애니메이션
+    display: flex; // Flexbox 사용
+    align-items: center; // 수직 가운데 정렬
+    justify-content: center; // 수평 가운데 정렬
+    position: relative; // 버튼의 상대 위치 설정
+`;
 
-    const handleScheduleChange = (event) => {
-        setSchedule(event.target.value);
-    };
+const Indicator = styled.div`
+    position: absolute;
+    top: 50%;
+    left: ${props => (props.active ? '75%' : '25%')}; // 상태에 따라 위치 조정
+    transform: translate(-50%, -50%); // 세로 중앙 정렬 및 수평 중앙 조정
+    width: 128px; // 인디케이터의 크기
+    height: 30px; // 버튼의 높이와 같게
+    background-color: white; // 인디케이터의 색상
+    border-radius: 20px; // 모서리 둥글게
+    transition: left 0.3s; // 위치 이동 애니메이션
+`;
 
-    const handleSave = () => {
-        // 여기에 스케줄 저장 로직을 추가
-        console.log(`저장된 스케줄: ${schedule} (${date.toLocaleDateString()})`);
-        onToggleEdit(); // 편집 모드 종료
-    };
+function EditDate() {
+    const [isRecurring, setIsRecurring] = useState(false); // 반복 일정 여부
 
     return (
         <EditDateContainer>
-            <textarea 
-                rows="4" 
-                value={schedule} 
-                onChange={handleScheduleChange} 
-                placeholder="여기에 스케줄을 입력하세요."
-            />
-            <button onClick={handleSave}>저장</button>
+            <ToggleButtonContainer>
+                <Indicator active={isRecurring} />
+                <ToggleButton active={!isRecurring} onClick={() => setIsRecurring(false)}>
+                    지정된 날짜
+                </ToggleButton>
+                <ToggleButton active={isRecurring} onClick={() => setIsRecurring(true)}>
+                    반복 일정
+                </ToggleButton>
+            </ToggleButtonContainer>
         </EditDateContainer>
     );
 }
