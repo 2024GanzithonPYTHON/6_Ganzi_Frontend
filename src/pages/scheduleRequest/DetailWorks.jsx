@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/DataContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import "./DetailWorks.css"; // 스타일링 파일
 import AddButton from "../../assets/workCategory/addButton.png"; 
 import Homeworka from "../../assets/workCategory/homework1.png"; 
@@ -40,6 +39,7 @@ import Etcc from "../../assets/workCategory/etc3.png";
 import Etcd from "../../assets/workCategory/etc4.png"; 
 import Etce from "../../assets/workCategory/etc5.png"; 
 import Etc from "../../assets/workCategory/etc.png";  
+import apiClient from "../../api/axClient";
 
 
 const DetailWorks = () => {
@@ -66,7 +66,7 @@ const DetailWorks = () => {
       name: "요리",
       image: Cook,
       details: [
-        {name: "장보기", image: Cooka},{name: "설거지",image:Cookb},{name: "냉장고 정리",image:Cookc},{name: "식사 당번",image:Cookd},{name: "주방 대청소",iamge:Cooke},{name: "추가하기", image: AddButton}] },
+        {name: "장보기", image: Cooka},{name: "설거지",image:Cookb},{name: "냉장고 정리",image:Cookc},{name: "식사 당번",image:Cookd},{name: "주방 대청소",image:Cooke},{name: "추가하기", image: AddButton}] },
     { id: 3,
       name: "가계",
       image : Money,
@@ -126,7 +126,8 @@ const DetailWorks = () => {
     };
 
     try {
-      const response = await axios.post("https://your-backend-endpoint", finalData);
+      console.log(finalData);
+      const response = await apiClient.post("/sch_requests/register/", finalData);
       console.log("Success:", response.data);
       navigate("/SuccessPage"); // 성공 후 이동
     } catch (error) {
@@ -149,9 +150,9 @@ const DetailWorks = () => {
           </button>
         ))}
       </div>
-      <div className="sec-title2"><strong>세부 업무</strong>를 지정해주세요</div>
       {categoryId && (
         <div className="details-section">
+          <div className="sec-title2"><strong>세부 업무</strong>를 지정해주세요</div>
           {categories.find((cat) => cat.id === categoryId).details.map((detail) => (
             <button
               key={detail.name}
@@ -182,8 +183,8 @@ const DetailWorks = () => {
             className={`user-button ${targetUsers.includes(user.user_id) ? "active" : ""}`}
             onClick={() => handleUserSelect(user.user_id)}
           >
-            <img src={user.profile_img} alt={user.nickname} width="50" height="50" />
-            <span>{user.nickname}</span>
+            <img src={user.profile_img} alt={user.nickname} width="50px" height="50px" />
+            <span className="selected-fam">{user.nickname}</span>
           </button>
         ))}
       </div>

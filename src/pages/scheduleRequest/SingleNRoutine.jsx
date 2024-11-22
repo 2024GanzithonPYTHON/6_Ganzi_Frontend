@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext"; //경로
 import "./SingleNRoutine.css";
 import Calendar from '../familycalendar/Calendar';
-import axios from "axios";
+import apiClient from "../../api/axClient";
 import Load from '../../assets/workCategory/loading-img.gif';
 
 const App = () => {
@@ -47,7 +47,8 @@ const App = () => {
     };
     setIsLoading(true);
     try {
-      const response = await axios.post("https://your-backend-endpoint", data); // 엔드포인트 변경
+      console.log(data);
+      const response = await apiClient.post("/sch_requests/get-available-user/", data); // 엔드포인트 변경
       console.log("Success:", response.data);
       setBackendResponse(response.data); // 백엔드 응답 저장
       setFirstlData(data); // 초기 데이터 저장

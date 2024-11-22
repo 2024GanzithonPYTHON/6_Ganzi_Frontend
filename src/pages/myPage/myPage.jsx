@@ -9,43 +9,6 @@ import rightWay from '../../assets/mypage/rightAngleBracket.png';
 import calButton from '../../assets/mypage/calendarButton.png';
 import FamilyList from './FamilyList'
 
-/*const dummyProfile = {
-  nickname: "일이삼사오륙칠팔구십",
-  email: "useremail@naver.com",
-  profile_img: calButton, // 임시 이미지
-  badges: [
-        {
-            badge_name: "밥상마스터"
-        },
-        {
-            badge_name: "1순위집사"
-        },
-        {
-            badge_name: "1순위집사"
-        },
-        {
-            badge_name: "1순위집사"
-        },
-        {
-            badge_name: "1순위집사"
-        }
-    ],
-	family: [
-		{
-			profile_img: calButton,
-			nickname: "일이삼사오륙칠팔구십"
-		},
-		{
-			profile_img: calButton,
-			nickname: "일이삼사오륙칠팔구십"
-		},
-		{
-			profile_img: calButton,
-			nickname: "현지우"
-		}
-	]
-}; */
-
 const MyPage = () => {
   const [profile, setProfile] = useState("");
   const navigate = useNavigate();
@@ -55,10 +18,8 @@ const MyPage = () => {
       try {
         const response = await apiClient.get("/accounts/myprofile/");
         setProfile(response.data); // 프로필 데이터를 상태에 저장
-        //setProfile(dummyProfile);
     } catch (error) {
-        console.error("API 요청 실패, 더미 데이터를 사용합니다:", error);
-        setProfile(dummyProfile); // 실패 시 더미 데이터로 설정
+        console.error("API 요청 실패", error);
       }
     };
 
@@ -68,13 +29,15 @@ const MyPage = () => {
   const handleLogout = async () => {
     try {
       // 로그아웃 요청
-      await apiClient.post("/accounts/logout/"); // 로그아웃 엔드포인트로 POST 요청
+      await apiClient.post("/accounts/kakao/logout/"); // 로그아웃 엔드포인트로 POST 요청
 
       // 로컬 스토리지에서 토큰 삭제 (로그아웃 처리)
       localStorage.removeItem("access_token");
-
+      navigate("/login");
+      alert("로그아웃 되었습니다.");
     } catch (error) {
       console.error("Failed to logout:", error);
+      alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
