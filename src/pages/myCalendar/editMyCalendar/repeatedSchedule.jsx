@@ -8,6 +8,35 @@ const RepeatedScheduleContainer = styled.div`
     margin-top: 20px;
 `;
 
+const ScheduleInput = styled.div`
+    position: relative; // 자식 요소의 절대 위치를 위한 상대 위치
+`;
+
+const InputField = styled.textarea`
+    width: 303px;
+    height: 25px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 0.5px solid #ccc;
+    padding-top: 10px;
+    padding-left: 20px; 
+    padding-right: 40px; // CharCount 공간 확보
+    resize: none; 
+    font-size: 14px; // 텍스트 크기 조정
+
+    &::placeholder {
+        color: #999; 
+        text-align: left; 
+    }
+`;
+
+const CharCount = styled.div`
+    color: #ccc; 
+    position: absolute; 
+    font-size: 13px; 
+    right: 15px; 
+    bottom: 15px;
+`;
 const StartTimeContainer = styled.div`
     display: flex;
     flex-direction: row; 
@@ -75,6 +104,17 @@ const Input = styled.input`
     border: 1px solid #ccc;
 `;
 
+const Month = styled.p`
+    font-size: 30px;
+    margin:0px;
+    padding-bottom:5px;
+`;
+
+const TermText = styled.p`
+    font-size: 12px;
+    margin: 0;          // 기본 여백 제거
+`;
+
 function RepeatedSchedule() {
     const [startHour, setStartHour] = useState('N시');
     const [startMinute, setStartMinute] = useState('N분');
@@ -111,17 +151,28 @@ function RepeatedSchedule() {
             </StartTimeContainer>
             
             <FrequencyContainer>
-                <FrequencyButton active={frequency === '1'} onClick={() => setFrequency('1')}>1 데일리</FrequencyButton>
-                <FrequencyButton active={frequency === '7'} onClick={() => setFrequency('7')}>7 위클리</FrequencyButton>
-                <FrequencyButton active={frequency === '30'} onClick={() => setFrequency('30')}>30 먼슬리</FrequencyButton>
+                <FrequencyButton active={frequency === '1'} onClick={() => setFrequency('1')}>
+                    <Month>1</Month>
+                    <TermText>데일리</TermText>
+                    </FrequencyButton>
+                <FrequencyButton active={frequency === '7'} onClick={() => setFrequency('7')}>
+                    <Month>7</Month>
+                    <TermText>위클리</TermText>
+                    </FrequencyButton>
+                <FrequencyButton active={frequency === '30'} onClick={() => setFrequency('30')}>
+                    <Month>30 </Month>
+                    <TermText>먼슬리</TermText> 
+                    </FrequencyButton>
             </FrequencyContainer>
 
-            <Input 
-                value={schedule} 
-                onChange={handleScheduleChange} 
-                placeholder="스케줄명을 입력해 주세요." 
-            />
-            <div>{schedule.length}/15</div>
+            <ScheduleInput>
+                <InputField 
+                    value={schedule} 
+                    onChange={handleScheduleChange} 
+                    placeholder="스케줄명을 입력해 주세요." 
+                    />
+                <CharCount>{schedule.length}/15</CharCount>
+                </ScheduleInput>
         </RepeatedScheduleContainer>
     );
 }
