@@ -60,6 +60,7 @@ function RejectedSchedule() {
         const handleSentSchedulesClick = () => {
             navigate('/sent-schedules'); // 보낸 스케줄 페이지로 이동
         };
+        
         // 받은 스케줄 클릭핸들러
         const handleacceptSchedulesClick = () => {
             navigate('/Acceptance'); // 보낸 스케줄 페이지로 이동
