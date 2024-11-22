@@ -41,10 +41,16 @@ function MyMemo() {
                         'Authorization': `Bearer ${userAccessToken}` // 가져온 토큰 사용
                     }
                 });
+
+                if (response.data?.success) { // 응답이 success일 때
+                    alert("저장되었습니다!"); // 성공 메시지
+                } else {
+                    alert("다시 시도해주세요."); // 실패 메시지
+                }
                 console.log('API 응답:', response.data); // 응답 확인
             } catch (error) {
                 console.error('API 요청 오류:', error);
-                alert("메모 저장 중 오류가 발생했습니다.");
+                alert("메모 저장 중 오류가 발생했습니다."); // 오류 메시지
             }
 
             setContent(''); // 내용 초기화
