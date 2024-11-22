@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../contexts/DataContext"; //경로
 import "./SingleNRoutine.css";
 import Calendar from '../familycalendar/Calendar';
 import axios from "axios";
+import Load from '../../assets/workCategory/loading-img.gif';
 
 const App = () => {
   const [selectedScheduleType, setSelectedScheduleType] = useState("date"); // 기본값: 지정된 날짜
@@ -16,6 +19,9 @@ const App = () => {
   const [recurringMonth, setRecurringMonth] = useState("01");
   const [recurringDay, setRecurringDay] = useState("01");
   const [recurringHour, setRecurringHour] = useState("00");
+  const { setFirstlData, setBackendResponse } = useContext(DataContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const combineDateTime = (date, hour, minute) => {
     return `${date} ${hour}:${minute}:00`;
@@ -39,11 +45,17 @@ const App = () => {
       end_time: finalEndTime,
       is_repeated: String(isRepeated),
     };
+    setIsLoading(true);
     try {
       const response = await axios.post("https://your-backend-endpoint", data); // 엔드포인트 변경
       console.log("Success:", response.data);
+      setBackendResponse(response.data); // 백엔드 응답 저장
+      setFirstlData(data); // 초기 데이터 저장
+      navigate("/DetailWorks", {state: { availableUsers: response.data}}); // 세부 업무 선택 페이지로 이동
     } catch (error) {
       console.error("Error posting data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -234,6 +246,16 @@ const App = () => {
       <button className="submit-button" onClick={handleSubmit}>
         계속하기
       </button>
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-text">일정이 가능한<br/>가족구성원을 찾고 있어요:D</div>
+          <img
+            src={Load}
+            alt="로딩 중"
+            className="loading-image"
+          />
+        </div>
+      )}
     </div>
   );
 };
