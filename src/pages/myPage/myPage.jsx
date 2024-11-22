@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import apiClient from "../../api/axiosClient";
+import apiClient from "../../api/axClient";
 import "./MyPage.css";
 import BadgeList from "../../badge/BadgeList";
 import logoutImage from '../../assets/mypage/logout.png';
@@ -9,7 +9,7 @@ import rightWay from '../../assets/mypage/rightAngleBracket.png';
 import calButton from '../../assets/mypage/calendarButton.png';
 import FamilyList from './FamilyList'
 
-const dummyProfile = {
+/*const dummyProfile = {
   nickname: "일이삼사오륙칠팔구십",
   email: "useremail@naver.com",
   profile_img: calButton, // 임시 이미지
@@ -44,10 +44,10 @@ const dummyProfile = {
 			nickname: "현지우"
 		}
 	]
-};
+}; */
 
 const MyPage = () => {
-  const [profile, setProfile] = useState(dummyProfile);
+  const [profile, setProfile] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const MyPage = () => {
       try {
         const response = await apiClient.get("/accounts/myprofile/");
         setProfile(response.data); // 프로필 데이터를 상태에 저장
-        setProfile(dummyProfile);
+        //setProfile(dummyProfile);
     } catch (error) {
         console.error("API 요청 실패, 더미 데이터를 사용합니다:", error);
         setProfile(dummyProfile); // 실패 시 더미 데이터로 설정
