@@ -2,17 +2,22 @@ import React, { useEffect } from 'react'; /* useEffect 추가 */
 import { BrowserRouter as Router, Route, Routes, Navigate /* Navigate 추가 */ } from 'react-router-dom';
 import { DataProvider } from "./contexts/DataContext";
 import Register from './pages/login/Register';
-import MyPage from './pages/myPage/MyPage';
+import MyPage from './pages/myPage/myPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
+import MyWeek from './pages/myCalendar/myschedule';
 import MyMemo from './pages/Memo/MyMemo';
+import EditMyCalendar from './pages/myCalendar/editMyCalendar/editMyCalendar';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import SelectWork from './pages/scheduleRequest/DetailWorks';
 import LoginPage from './pages/login/Login';
 import KakaoRedirector from './pages/login/KakaoLoginRedirection';
 import './App.css'
 import Logo from './global/Logo';
+import AcceptList from './pages/acceptCheck/acceptlist';
+import ScheduleRequest from './pages/acceptCheck/scheduleRequest';
+
 import BottomNav from './global/BottomNav';
 import styled from "styled-components"
 
@@ -60,12 +65,16 @@ const Footer = styled.div`
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
+          <Route path = "/MyWeek" element = {<MyWeek/>}/>
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           <Route path = "/MyMemo" element = {<MyMemo/>}/>
           <Route path="/SingleNRoutine" element={<DataProvider><SelectRoutine /></DataProvider>} />
           <Route path="/DetailWorks" element={<DataProvider><SelectWork /></DataProvider>} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/KakaoLoginRedirection" element={<KakaoRedirector />} />
+          <Route path = "/EditMyCalendar" element = {<EditMyCalendar/>}/>
+          <Route path = "/Acceptance" element = {<AcceptList/>}/>
+          <Route path = "/schedule-request" element={<ScheduleRequest/>}/>
           {/* 다른 Route 추가 */}
         </Routes>
         </Content>
