@@ -7,6 +7,7 @@ import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
 import MyWeek from './pages/myCalendar/myschedule';
 import MyMemo from './pages/Memo/MyMemo';
+import EditMyCalendar from './pages/myCalendar/editMyCalendar/editMyCalendar';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import Loading from './pages/scheduleRequest/Loading';
 import LoginPage from './pages/login/Login';
@@ -62,6 +63,7 @@ const Footer = styled.div`
           <Route path = "/MyWeek" element = {<MyWeek/>}/>
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           <Route path = "/MyMemo" element = {<MyMemo/>}/>
+          <Route path = "/EditMyCalendar" element = {<EditMyCalendar/>}/>
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
           <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
