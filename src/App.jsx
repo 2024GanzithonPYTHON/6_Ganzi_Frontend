@@ -14,6 +14,8 @@ import LoginPage from './pages/login/Login';
 import './App.css'
 import Logo from './global/Logo';
 import AcceptList from './pages/acceptCheck/acceptlist';
+import ScheduleRequest from './pages/acceptCheck/scheduleRequest';
+
 import BottomNav from './global/BottomNav';
 import styled from "styled-components"
 
@@ -69,6 +71,7 @@ const Footer = styled.div`
           <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
           <Route path = "/Acceptance" element = {<AcceptList/>}/>
+          <Route path = "/schedule-request" element={<ScheduleRequest/>}/>
             
           {/* 다른 Route 추가 */}
         </Routes>

@@ -1,16 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`
     padding: 20px;
-    background-color: #f8f8f8;
-`;
-
-const Header = styled.h1`
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
 `;
 
 const SubHeader = styled.h2`
@@ -35,10 +29,12 @@ const Tab = styled.button`
 `;
 
 const ScheduleCard = styled.div`
-    background-color: #ffeb3b;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px 0;
+    border-radius: 15px;
+    background: #FFF9E8;
+    width: 349px;
+    height: 84px;
+    padding: 10px; 
+    margin-bottom: 20px;
 `;
 
 const Category = styled.p`
@@ -55,6 +51,12 @@ const ScheduleContent = styled.p`
 `;
 
 function AcceptList() {
+    const navigate = useNavigate(); 
+    const handleCardClick = (schedule) => {
+        // 스케줄 정보를 상태나 컨텍스트에 저장하고, 페이지 이동
+        navigate('/schedule-request', { state: { schedule } });
+    };
+
     const schedules = [
         { category: '보낸 스케줄', title: '제목입니다', content: '내용입니다. 내용입니다. 내용입니다.' },
         { category: '보낸 스케줄', title: '제목입니다', content: '내용입니다. 내용입니다. 내용입니다.' },
@@ -62,7 +64,6 @@ function AcceptList() {
 
     return (
         <Container>
-            <Header>FLAN</Header>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
                 <Tab active>받은 스케줄</Tab>
@@ -70,7 +71,7 @@ function AcceptList() {
                 <Tab>거절한 스케줄</Tab>
             </TabContainer>
             {schedules.map((schedule, index) => (
-                <ScheduleCard key={index}>
+                <ScheduleCard key={index} onClick={() => handleCardClick(schedule)}>
                     <Category>{schedule.category}</Category>
                     <ScheduleTitle>{schedule.title}</ScheduleTitle>
                     <ScheduleContent>{schedule.content}</ScheduleContent>
