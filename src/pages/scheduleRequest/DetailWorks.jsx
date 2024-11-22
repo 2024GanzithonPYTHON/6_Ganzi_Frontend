@@ -196,7 +196,7 @@ const DetailWorks = () => {
           onChange={(e) => setMemo(e.target.value)}
         />
       </div>
-      <button className="submit-button" onClick={handleSubmit}>
+      <button className="submit-button2" onClick={handleSubmit}>
         요청하기
       </button>
     </div>
