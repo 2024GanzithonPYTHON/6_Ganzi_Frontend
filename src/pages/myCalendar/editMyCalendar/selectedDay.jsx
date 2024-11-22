@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
+import SpecialDay from "./specialDay";
 
 const InputContainer = styled.div`
     margin-top: 20px;
@@ -75,7 +76,7 @@ const ScheduleInput = styled.div`
 `;
 
 const InputField = styled.textarea`
-    width: 313px;
+    width: 303px;
     height: 25px;
     margin-top: 20px;
     border-radius: 10px;
@@ -168,14 +169,8 @@ function SelectedDate({ date, onToggleEdit }) {
                             <CharCount>{schedule.length}/15</CharCount>
                         </ScheduleInput>
                     </StartTimeContainer>
-                    
 
-                    <Select value={eventName} onChange={(e) => setEventName(e.target.value)}>
-                        <option value="기념일">기념일</option>
-                        <option value="회의">회의</option>
-                        <option value="약속">약속</option>
-                        {/* 필요한 다른 옵션 추가 */}
-                    </Select>
+                    <SpecialDay/>
                 </InputContainer>
             )}
         </div>

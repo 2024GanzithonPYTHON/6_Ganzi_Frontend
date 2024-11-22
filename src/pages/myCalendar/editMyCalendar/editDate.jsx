@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SelectedDate from "./selectedDay";
 import RepeatedSchedule from "./repeatedSchedule";
 
+
 const EditDateContainer = styled.div`
     display: flex;
     flex-direction: column; // 세로 방향으로 정렬
