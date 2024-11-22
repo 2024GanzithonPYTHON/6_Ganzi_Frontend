@@ -7,8 +7,7 @@ import {Link} from "react-router-dom";
 const BottomNav = () => {
     return(
         <nav className = "wrapper">
-            <Link to="/" className="nav-button">
-                {/* 얘만 이미지에 뒷배경 있음 . svg 해도 마찬가지*/}
+            <Link to="/MyWeek" className="nav-button">
                 <img src = "public\assets\Global\BottomNav\mycalendar.svg" alt = "내 캘린더"/>
 
                 <br/>
