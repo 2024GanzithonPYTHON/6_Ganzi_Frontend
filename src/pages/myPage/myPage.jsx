@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import apiClient from "../../api/axiosClient";
-import "./MyPage.css";
+import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
-import logoutImage from '../../assets/mypage/logout.png';
-import rightWay from '../../assets/mypage/rightAngleBracket.png';
-import calButton from '../../assets/mypage/calendarButton.png';
+import logoutImage from '../../assets/myPage/logout.png';
+import rightWay from '../../assets/myPage/rightAngleBracket.png';
+import calButton from '../../assets/myPage/calendarButton.png';
 
 const dummyProfile = {
   nickname: "마라맛아기사자",
@@ -111,7 +111,7 @@ const MyPage = () => {
         <div className="schedule-management">
          <div className="schedule-header">
             <h3 className="schedule-title">스케쥴 관리하기</h3>
-            <Link to="/받은스케쥴" className="received-schedule-button">
+            <Link to="/Acceptance" className="received-schedule-button">
               <img src={rightWay} alt="받은 스케쥴" />
               <span>받은스케쥴</span>
             </Link>
