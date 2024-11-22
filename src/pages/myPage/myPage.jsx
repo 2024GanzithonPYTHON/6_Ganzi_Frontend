@@ -111,7 +111,7 @@ const MyPage = () => {
         <div className="schedule-management">
          <div className="schedule-header">
             <h3 className="schedule-title">스케쥴 관리하기</h3>
-            <Link to="/받은스케쥴" className="received-schedule-button">
+            <Link to="/Acceptance" className="received-schedule-button">
               <img src={rightWay} alt="받은 스케쥴" />
               <span>받은스케쥴</span>
             </Link>
