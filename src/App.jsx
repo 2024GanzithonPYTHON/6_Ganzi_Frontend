@@ -9,7 +9,7 @@ import MyMemo from './pages/Memo/MyMemo';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import Loading from './pages/scheduleRequest/Loading';
 import LoginPage from './pages/login/Login';
-import CallbackHandler from './pages/login/CallbackHandler';
+import KakaoRedirector from './pages/login/KakaoLoginRedirection';
 import './App.css'
 import Logo from './global/Logo';
 import BottomNav from './global/BottomNav';
@@ -64,7 +64,7 @@ const Footer = styled.div`
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
           <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
-          <Route path=".login/callbackHandler" element={<CallbackHandler />} />
+          <Route path="/KakaoLoginRedirection" element={<KakaoRedirector />} />
           {/* 다른 Route 추가 */}
         </Routes>
         </Content>
