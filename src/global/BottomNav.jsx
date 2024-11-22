@@ -9,7 +9,7 @@ const BottomNav = () => {
         <nav className = "wrapper">
             <Link to="/" className="nav-button">
                 {/* 얘만 이미지에 뒷배경 있음 . svg 해도 마찬가지*/}
-                <img src = "public\assets\Global\BottomNav\MyCalendar.svg" alt = "내 캘린더"/>
+                <img src = "public\assets\Global\BottomNav\mycalendar.svg" alt = "내 캘린더"/>
 
                 <br/>
                 내 캘린더

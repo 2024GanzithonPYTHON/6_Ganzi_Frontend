@@ -5,6 +5,7 @@ import MyPage from './pages/myPage/myPage';
 import EditProfile from './pages/myPage/EditProfile';
 import Home from './pages/Home/Home';
 import FamilyCalendar from './pages/familycalendar/FamilyCalendar';
+import MyWeek from './pages/myCalendar/myschedule';
 import MyMemo from './pages/Memo/MyMemo';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
 import Loading from './pages/scheduleRequest/Loading';
@@ -58,6 +59,7 @@ const Footer = styled.div`
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
+          <Route path = "/MyWeek" element = {<MyWeek/>}/>
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           <Route path = "/MyMemo" element = {<MyMemo/>}/>
           <Route path="/SingleNroutine" element={<SelectRoutine />} />
