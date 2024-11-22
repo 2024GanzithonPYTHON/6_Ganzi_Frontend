@@ -17,7 +17,7 @@ const FamilyList = ({ family = [] }) => {
             </div>
           ))
         ) : (
-          <p>No family members found.</p>
+          <p></p>
         )}
       </div>
     </div>

@@ -70,7 +70,7 @@ const MyPage = () => {
         {profile.badges && profile.badges.length > 0 ? (
           <BadgeList badges={profile.badges} /> // 배지 목록 표시
         ) : (
-          <p>No badges found</p>
+          <p>획득한 배지가 없습니다.</p>
         )}
       </div>
 
