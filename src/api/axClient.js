@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({
-    baseURL: 'http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/', // 백엔드 API 기본 URL
+    baseURL: 'http://3.34.78.66/', // 백엔드 API 기본 URL
     headers: {
         'Content-Type': 'application/json',
     },
