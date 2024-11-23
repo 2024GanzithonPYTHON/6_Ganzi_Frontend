@@ -8,7 +8,7 @@ const BottomNav = () => {
     return(
         <nav className = "wrapper">
             <Link to="/MyWeek" className="nav-button">
-                <img src = "public\assets\Global\BottomNav\mycalendar.svg" alt = "내 캘린더"/>
+                <img src="/assets/Global/BottomNav/mycalendar.svg" alt="내 캘린더" />
 
                 <br/>
                 내 캘린더
