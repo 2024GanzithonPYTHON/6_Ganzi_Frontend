@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { format, startOfWeek, addDays, addWeeks, addMonths, isSameDay } from 'date-fns';
 import styled from "styled-components";
+import api from '../../api/api';
+import axios from 'axios';
 
 const Button = styled.button`
     cursor: pointer;
@@ -73,11 +75,39 @@ const WeekCalendar = () => {
     setCurrentDate(addWeeks(currentDate, -1));
   };
 
-  // 날짜 클릭 시 동작할 함수
-  const handleDateClick = (day) => {
-    alert(`${format(day, 'yyyy년 MM월 dd일')} 클릭됨!`);
+  const handleDateClick = async (day) => {
+    const date = format(day, 'yyyy-MM-dd');
+    const url = `/personal/my-schedule/?date=${date}`; 
+    const userAccessToken = localStorage.getItem("access_token");
+  
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${userAccessToken}`
+            }
+        });
+  
+        // 응답 상태 확인
+        if (!response.ok) {
+            const errorText = await response.text(); // 응답 텍스트를 읽어옴
+            throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+        }
+  
+        // JSON 변환 시도
+        let data;
+        try {
+            data = await response.json(); // 응답 데이터를 JSON으로 변환
+        } catch (jsonError) {
+            throw new Error('Failed to parse JSON response: ' + jsonError.message);
+        }
+  
+        console.log('서버에서 반환된 스케줄 데이터:', data); // 데이터 처리
+    } catch (error) {
+        console.error('API 요청 오류:', error.message); // 오류 메시지 출력
+    }
   };
-
+  
   // 컴포넌트가 마운트될 때 오늘 날짜로 초기화
   useEffect(() => {
     const today = new Date();

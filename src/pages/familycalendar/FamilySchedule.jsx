@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import api from '../../api/api';
 
 // Mock Data -> 후에 이미지까지 올 예정
 const mockSchedules = [
@@ -140,18 +141,28 @@ const Memo = styled.div`
 
 const FamilySchedule = ({ selectedDate }) => {
     const [schedules, setSchedules] = useState([]);
+    const userAccessToken = localStorage.getItem("access_token");
 
-    useEffect(() => {
-        const fetchSchedules = () => {
-            const filteredSchedules = mockSchedules.filter(schedule => {
-                return isScheduleVisible(schedule, selectedDate);
-            });
+     useEffect(() => {
+        const fetchSchedules = async () => {
+            const year = selectedDate.getFullYear();
+            const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // 1월은 0이므로 +1
+            const day = String(selectedDate.getDate()).padStart(2, '0');
 
-            setSchedules(filteredSchedules);
+            try {
+                const response = await api.get(`/family/calendar/${year}/${month}/${day}/`, {
+                    headers: {
+                        'Authorization': `Bearer ${userAccessToken}`,
+                    },
+                });
+                setSchedules(response.data); // 받은 데이터를 상태에 저장
+            } catch (error) {
+                console.error('API 요청 오류:', error.message);
+            }
         };
 
         if (selectedDate) {
-            fetchSchedules();
+            fetchSchedules(); // 선택된 날짜가 있을 때만 데이터 요청
         }
     }, [selectedDate]);
 
@@ -172,11 +183,11 @@ const FamilySchedule = ({ selectedDate }) => {
             {schedules.length === 0 ? (
                 <p>일정이 없습니다.</p>
             ) : (
-                schedules.map(schedule => (
+                schedules.filter(schedule => isScheduleVisible(schedule, selectedDate)).map(schedule => (
                     <ScheduleItem key={schedule.personal_schedule_id}>
                         <GraySquare />
                         <CategoryContainer>
-                            Category: {schedule.personal_schedule_id}
+                            Category: {schedule.category}
                         </CategoryContainer>
                         <InfoContainer>
                             <ScheduleTitle>{schedule.schedule_title}</ScheduleTitle>

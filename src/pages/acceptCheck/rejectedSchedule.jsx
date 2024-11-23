@@ -52,26 +52,31 @@ const ScheduleContent = styled.p`
     color: #555;
 `;
 
-function AcceptList() {
+function RejectedSchedule() {
     const navigate = useNavigate();
-    const userAccessToken = localStorage.getItem("access_token");
+    const userAccessToken = localStorage.getItem("access_token"); // 로컬 스토리지에서 액세스 토큰 가져오기
     const [incomingSchedules, setIncomingSchedules] = useState([]);
-    const [activeTab, setActiveTab] = useState('accept'); // 활성화된 탭 상태 추가
-
-    const handleSentSchedulesClick = () => {
-        setActiveTab('sent'); // 탭 상태 업데이트
-        navigate('/sent-schedules');
-    };
-
-    const handleRejectedSchedulesClick = () => {
-        setActiveTab('reject'); // 탭 상태 업데이트
-        navigate('/rejected-schedules');
-    };
+        // 보낸 스케줄 클릭 핸들러
+        const handleSentSchedulesClick = () => {
+            navigate('/sent-schedules'); // 보낸 스케줄 페이지로 이동
+        };
+        
+        // 받은 스케줄 클릭핸들러
+        const handleacceptSchedulesClick = () => {
+            navigate('/Acceptance'); // 보낸 스케줄 페이지로 이동
+            };
+    
+        // 거절한 스케줄 클릭 핸들러
+        const handleRejectedSchedulesClick = () => {
+            navigate('/rejected-schedules'); // 거절한 스케줄 페이지로 이동
+        };
 
     const handleCardClick = (schedule) => {
+        // 스케줄 정보를 상태나 컨텍스트에 저장하고, 페이지 이동
         navigate('/schedule-request', { state: { schedule } });
     };
 
+    // 받은 스케줄을 가져오는 함수
     const fetchIncomingSchedules = async () => {
         try {
             const response = await api.get('/family/incoming/', {
@@ -79,23 +84,26 @@ function AcceptList() {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
             });
-            setIncomingSchedules(response.data);
+
+            setIncomingSchedules(response.data); // 받은 스케줄 데이터를 상태에 저장
         } catch (error) {
-            console.error('API 요청 오류:', error.message);
+            console.error('API 요청 오류:', error.message); // 오류 메시지 출력
         }
     };
 
+    // 컴포넌트가 마운트될 때 스케줄 데이터 가져오기
     useEffect(() => {
         fetchIncomingSchedules();
     }, []);
+
 
     return (
         <Container>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
-                <Tab onClick={() => {}} active={activeTab === 'accept'}>받은 스케줄</Tab>
-                <Tab onClick={handleSentSchedulesClick} active={activeTab === 'sent'}>보낸 스케줄</Tab>
-                <Tab onClick={handleRejectedSchedulesClick} active={activeTab === 'reject'}>거절한 스케줄</Tab>
+                <Tab  onClick={handleacceptSchedulesClick}>받은 스케줄</Tab>
+                <Tab onClick={(handleSentSchedulesClick)}>보낸 스케줄</Tab>
+                <Tab active onClick={handleRejectedSchedulesClick}>거절한 스케줄</Tab>
             </TabContainer>
             {incomingSchedules.map((schedule, index) => (
                 <ScheduleCard key={index} onClick={() => handleCardClick(schedule)}>
@@ -108,4 +116,5 @@ function AcceptList() {
     );
 }
 
-export default AcceptList;
+export default RejectedSchedule;
+

@@ -17,9 +17,13 @@ import './App.css'
 import Logo from './global/Logo';
 import AcceptList from './pages/acceptCheck/acceptlist';
 import ScheduleRequest from './pages/acceptCheck/scheduleRequest';
+import SentSchedule from './pages/acceptCheck/sentSchedule';
+import RejectedSchedule from './pages/acceptCheck/rejectedSchedule';
 
 import BottomNav from './global/BottomNav';
 import styled from "styled-components"
+import axios from 'axios';
+
 
 const LogoFix = styled.div`
   display : flex;
@@ -45,13 +49,21 @@ const Footer = styled.div`
 `;
 
  function App() {
-  useEffect(() => {
+  // 로그인 성공 후
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0ODgyOTYwLCJpYXQiOjE3MzIyOTA5NjAsImp0aSI6Ijk3ZTkyYjYzNDBjZTQ5ZDNhMTExNDU2MWJjY2Q0NmY0IiwidXNlcl9pZCI6MjN9.njoLLszLK8POmqiGYYuRVhrmm0gAF2CMe5SfnYq1Y5c"; // 서버에서 받은 액세스 토큰
+  const refreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMzUwMDU2MCwiaWF0IjoxNzMyMjkwOTYwLCJqdGkiOiJkYmYwMzgyMDE0OTQ0ZWE0ODJmOWJkY2RjMmFmNDNiZCIsInVzZXJfaWQiOjIzfQ.yLxlwnj3YucqrUdsx8As3Rp7qDAdaUnpN60bZ92ExKE"; // 서버에서 받은 리프레시 토큰
+
+  // 로컬스토리지에 토큰 저장
+  localStorage.setItem("access_token", token);
+  localStorage.setItem("refresh_token", refreshToken);
+
+  {/*useEffect(() => {
     // refresh_token 존재 여부 확인 +(로그인 상태 판단 뭘로하는지 물어봐야됨)
     const refreshToken = localStorage.getItem("refresh_token");
     if (refreshToken) {
       window.location.href = "/MyPage"; //우선 구현된 페이지
     }
-  }, []);
+  }, []);*/}
 
   return (
     <div id="app"> 
@@ -75,6 +87,8 @@ const Footer = styled.div`
           <Route path = "/EditMyCalendar" element = {<EditMyCalendar/>}/>
           <Route path = "/Acceptance" element = {<AcceptList/>}/>
           <Route path = "/schedule-request" element={<ScheduleRequest/>}/>
+          <Route path="/sent-schedules" element={<SentSchedule />} />
+          <Route path="/rejected-schedules" element={<RejectedSchedule />}/>
           {/* 다른 Route 추가 */}
         </Routes>
         </Content>
