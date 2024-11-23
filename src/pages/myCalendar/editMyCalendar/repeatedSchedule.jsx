@@ -1,43 +1,163 @@
-import React, { useState } from 'react';
-import api from '../../../api/api'; // api.js에서 axios 인스턴스를 가져옵니다.
+import React, { useState } from "react";
+import styled from 'styled-components';
+import api from "../../../api/api";
+
+const RepeatedScheduleContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+`;
+
+const ScheduleInput = styled.div`
+    position: relative; // 자식 요소의 절대 위치를 위한 상대 위치
+`;
+
+const InputField = styled.textarea`
+    width: 303px;
+    height: 25px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 0.5px solid #ccc;
+    padding-top: 10px;
+    padding-left: 20px; 
+    padding-right: 40px; // CharCount 공간 확보
+    resize: none; 
+    font-size: 14px; // 텍스트 크기 조정
+
+    &::placeholder {
+        color: #999; 
+        text-align: left; 
+    }
+`;
+
+const CharCount = styled.div`
+    color: #ccc; 
+    position: absolute; 
+    font-size: 13px; 
+    right: 15px; 
+    bottom: 15px;
+`;
+const StartTimeContainer = styled.div`
+    display: flex;
+    flex-direction: row; 
+    align-items: center;   
+    margin-bottom: 20px;
+`;
+
+const Label = styled.span`
+    margin-bottom: 5px;
+    font-weight: normal;
+    color: #FF4D4D;  // 빨간색
+`;
+
+const BlackLabel = styled.span`
+    margin-bottom: 5px;
+    font-weight: normal;
+    color: black;
+`;
+
+const SelectContainer = styled.div`
+    display: flex;
+    margin-bottom: 30px;
+    
+`;
+
+const Select = styled.select`
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 70px;
+`;
+
+const FrequencyContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+`;
+
+const FrequencyButton = styled.button`
+    width: 85px;
+    height: 88px;
+
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 20px;
+    margin: 0 5px;
+    background-color: ${props => (props.active ? '#F8D785' : '#fff')};
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #e0c06a;
+    }
+`;
+
+const Input = styled.input`
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+`;
+
+const Month = styled.p`
+    font-size: 30px;
+    margin:0px;
+    padding-bottom:5px;
+`;
+
+const TermText = styled.p`
+    font-size: 12px;
+    margin: 0;          // 기본 여백 제거
+`;
 
 function RepeatedSchedule() {
     const [startHour, setStartHour] = useState('N시');
     const [startMinute, setStartMinute] = useState('N분');
     const [frequency, setFrequency] = useState('1'); // 기본값 1
     const [schedule, setSchedule] = useState('');
-    const [accessToken, setAccessToken] = useState(''); // Access token을 저장할 상태
+    const [scheduleDate, setScheduleDate] = useState('2024-11-16'); // 예시 날짜
+    const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token")); // access token
 
     const handleScheduleChange = (event) => {
         setSchedule(event.target.value);
     };
 
     const handleSubmit = async () => {
-        const inputScheduleDate = "2024-11-16"; // 예시 날짜
-        const inputStartTime = `${startHour.replace('시', '')}:${startMinute.replace('분', '')}:00`;
+        const startTime = `${startHour}:${startMinute}:00`; // 시작 시간 포맷
+        const endTime = `${startHour}:${parseInt(startMinute) + 2}:00`; // 종료 시간 예시로 2시간 후
+        const isDaily = frequency === '1';
+        const isWeekly = frequency === '7';
+        const isMonthly = frequency === '30';
 
         const requestBody = {
-            input_schedule_date: inputScheduleDate,
-            input_start_time: inputStartTime,
-            input_end_time: "12:00:00", // 종료 시간 예시
+            input_schedule_date: scheduleDate,
+            input_start_time: startTime,
+            input_end_time: endTime,
             schedule_title: schedule,
-            is_daily: frequency === '1',
-            is_weekly: frequency === '7',
-            is_monthly: frequency === '30',
-            is_yearly: false // 필요한 경우 추가
+            is_daily: isDaily,
+            is_weekly: isWeekly,
+            is_monthly: isMonthly,
+            is_yearly: false // 연간 스케줄은 예시로 false로 설정
         };
 
         try {
-            const response = await api.post('/personal/repeated/register/', requestBody, {
+            const response = await api.post('/personal/my-schedule/', requestBody, {
                 headers: {
-                    'Authorization': `Bearer ${accessToken}`, // Access token 추가
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 }
             });
-
-            console.log('성공:', response.data);
+            console.log('스케줄 등록 성공:', response.data);
+            // 성공적으로 스케줄이 등록된 후에 추가적인 처리 (예: 알림, 리셋 등)
         } catch (error) {
-            console.error('오류 발생:', error.response ? error.response.data : error.message);
+            console.error('스케줄 등록 오류:', error.response?.data || error.message);
+            // 오류 처리
         }
     };
 
@@ -90,7 +210,7 @@ function RepeatedSchedule() {
                 <CharCount>{schedule.length}/15</CharCount>
             </ScheduleInput>
 
-            <button onClick={handleSubmit}>스케줄 등록</button>
+            <button onClick={handleSubmit}>스케줄 등록</button> {/* 제출 버튼 추가 */}
         </RepeatedScheduleContainer>
     );
 }
