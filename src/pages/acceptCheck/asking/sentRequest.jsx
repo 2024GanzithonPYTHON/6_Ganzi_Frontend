@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Clap from '../../assets/clap.png';
-import { useNavigate } from 'react-router-dom'; // 추가
+import Clap from '../../../assets/clap.png';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../../../api/api';
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`
@@ -91,12 +92,49 @@ const Overlay = styled.div`
     z-index: 999; // 오버레이를 팝업 아래에
 `;
 
-function ScheduleRequest() {
+function SentRequest() {
     const [showPopup, setShowPopup] = useState(false);
+    const [scheduleData, setScheduleData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const { id } = useParams(); // URL 파라미터에서 ID 가져오기
+    const userAccessToken = localStorage.getItem("access_token");
+
+    const fetchScheduleData = async () => {
+        setLoading(true);
+        try {
+            const response = await api.get(`/family/outgoing/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            setScheduleData(response.data);
+        } catch (error) {
+            console.error('API 요청 오류:', error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchScheduleData(); // 컴포넌트가 마운트될 때 데이터 요청
+    }, [id]);
 
     const handleAccept = () => {
-        setShowPopup(true); // 팝업 보여주기
+        setShowPopup(true);
+    };
+
+    const handleReject = async () => {
+        try {
+            await api.delete(`/family/outgoing/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            navigate('/Acceptance'); // 거절 후 Acceptance 페이지로 이동
+        } catch (error) {
+            console.error('거절 요청 오류:', error.message);
+        }
     };
 
     const handleClosePopup = () => {
@@ -104,23 +142,31 @@ function ScheduleRequest() {
         navigate('/Acceptance'); // Acceptance 페이지로 이동
     };
 
+    if (loading) {
+        return <p>로딩중...</p>;
+    }
+
+    if (!scheduleData) {
+        return <p>스케줄 데이터를 찾을 수 없습니다.</p>;
+    }
+
     return (
         <Container>
             <Header>가족 스케줄 관리</Header>
             <Image src={Clap} alt="하이파이브" />
-            <RequestInfo>[프로필명1]의 요청입니다.</RequestInfo>
+            <RequestInfo>{scheduleData.sent_user_name}의 요청입니다.</RequestInfo>
             <RequestInfo>요청사항을 검토 후 확정하면 스케줄이 등록됩니다.</RequestInfo>
 
-            <Category>카테고리</Category>
+            <Category>{scheduleData.category_name}</Category>
             <ScheduleDetails>
-                <ScheduleTitle>[스케줄명]</ScheduleTitle>
-                <ScheduleDate>2023년 11월 22일 00:00</ScheduleDate>
-                <ScheduleDetails>상세 내용입니다. 내용입니다. 내용입니다.</ScheduleDetails>
+                <ScheduleTitle>{scheduleData.schedule_title}</ScheduleTitle>
+                <ScheduleDate>{scheduleData.schedule_time}</ScheduleDate>
+                <ScheduleDetails>{scheduleData.schedule_memo}</ScheduleDetails>
             </ScheduleDetails>
 
             <ButtonContainer>
-                <Button onClick={handleAccept}>수락하기</Button>
-                <Button>거절하기</Button>
+                
+                <Button onClick={handleReject}>요청취소하기</Button>
             </ButtonContainer>
 
             {showPopup && (
@@ -137,4 +183,4 @@ function ScheduleRequest() {
     );
 }
 
-export default ScheduleRequest;
+export default SentRequest;

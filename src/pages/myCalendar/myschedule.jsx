@@ -22,7 +22,7 @@ function MyWeek() {
   return (
       <Container>
           <h1>주간 달력</h1>
-          <WeekCalendar />
+          {/*<WeekCalendar />*/}
           <MySchedulelist />
           <ButtonWrapper>
               <NewAddButton />

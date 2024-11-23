@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { format, startOfWeek, addDays, addWeeks, addMonths, isSameDay } from 'date-fns';
+import { format, startOfWeek, addDays, addWeeks, addMonths } from 'date-fns';
 import styled from "styled-components";
-import api from '../../api/api';
-import axios from 'axios';
+import api from '../../api/api'; // api 모듈 import
 
 const Button = styled.button`
     cursor: pointer;
     padding: 5px 5px;
     border: none;
-    background-color: transparent; /* 배경을 투명하게 */
+    background-color: transparent;
     color: black;
     font-size: 20px; 
     font-family: 'pretendard';
-    font-weight: lighter; /* 피그마에 lighter이라 되어있음 */
+    font-weight: lighter; 
 `;
 
 const YearMonthContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center; 
-    flex-grow: 1; /* 남는 공간을 차지하도록 설정 */
+    flex-grow: 1; 
 `;
 
 const TableCell = styled.td`
@@ -38,80 +37,59 @@ const TableCell = styled.td`
 const WeekCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // 오늘 날짜를 기준으로 주의 시작일을 계산
   const getWeekStart = (date) => startOfWeek(date, { weekStartsOn: 0 });
-
-  // 주의 시작일을 계산 -> 이유모르겠는데 자꾸 전주로 렌더링해옴 일단 담주렌더링
   const weekStart = addWeeks(getWeekStart(currentDate), 1);
-
-  // 오늘 날짜의 인덱스 계산
-  const todayIndex = new Date().getDay(); // 0: 일요일, 1: 월요일, ..., 6: 토요일
-
-  // 오늘을 기준으로 한주를 배열로 생성
+  const todayIndex = new Date().getDay();
+  
   const weekDays = Array.from({ length: 7 }, (_, index) => 
-    addDays(weekStart, index - (todayIndex)) // 오늘을 중앙에 두기 위해 조정
+    addDays(weekStart, index - todayIndex)
   );
 
-  // 주의 시작일을 오늘을 기준으로 조정
-  const adjustedWeekStart = addDays(weekStart, -3); // 중앙에 오게 하려면 3일을 뺌
+  const adjustedWeekStart = addDays(weekStart, -3);
 
-  // 다음 달로 넘어가는 함수
   const goToNextMonth = () => {
     setCurrentDate(addMonths(currentDate, 1));
   };
 
-  // 이전 달로 넘어가는 함수
   const goToPreviousMonth = () => {
     setCurrentDate(addMonths(currentDate, -1));
   };
 
-  // 다음 주로 넘어가는 함수
   const goToNextWeek = () => {
     setCurrentDate(addWeeks(currentDate, 1));
   };
 
-  // 이전 주로 넘어가는 함수
   const goToPreviousWeek = () => {
     setCurrentDate(addWeeks(currentDate, -1));
   };
 
   const handleDateClick = async (day) => {
     const date = format(day, 'yyyy-MM-dd');
-    const url = `/personal/my-schedule/?date=${date}`; 
+    const url = '/personal/my-schedule/';
     const userAccessToken = localStorage.getItem("access_token");
-  
+
+    const requestBody = {
+      schedule_date: date,
+    };
+
     try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${userAccessToken}`
-            }
-        });
-  
-        // 응답 상태 확인
-        if (!response.ok) {
-            const errorText = await response.text(); // 응답 텍스트를 읽어옴
-            throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
-        }
-  
-        // JSON 변환 시도
-        let data;
-        try {
-            data = await response.json(); // 응답 데이터를 JSON으로 변환
-        } catch (jsonError) {
-            throw new Error('Failed to parse JSON response: ' + jsonError.message);
-        }
-  
-        console.log('서버에서 반환된 스케줄 데이터:', data); // 데이터 처리
+      const response = await api.get(url, {
+        headers: {
+          'Authorization': `Bearer ${userAccessToken}`,
+          'Content-Type': 'application/json',
+        },
+        params: requestBody,
+      });
+
+      console.log('서버에서 반환된 스케줄 데이터:', response.data);
     } catch (error) {
-        console.error('API 요청 오류:', error.message); // 오류 메시지 출력
+      console.error('API 요청 오류:', error.response?.data || error.message);
     }
   };
-  
-  // 컴포넌트가 마운트될 때 오늘 날짜로 초기화
+
   useEffect(() => {
     const today = new Date();
-    setCurrentDate(today); // 오늘 날짜로 초기화
+    setCurrentDate(today);
   }, []);
 
   return (
@@ -140,6 +118,5 @@ const WeekCalendar = () => {
     </div>
   );
 };
-
 
 export default WeekCalendar;

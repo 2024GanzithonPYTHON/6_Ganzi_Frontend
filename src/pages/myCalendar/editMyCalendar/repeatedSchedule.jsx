@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
+import api from "../../../api/api";
 
 const RepeatedScheduleContainer = styled.div`
     display: flex;
@@ -120,9 +121,44 @@ function RepeatedSchedule() {
     const [startMinute, setStartMinute] = useState('N분');
     const [frequency, setFrequency] = useState('1'); // 기본값 1
     const [schedule, setSchedule] = useState('');
+    const [scheduleDate, setScheduleDate] = useState('2024-11-16'); // 예시 날짜
+    const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token")); // access token
 
     const handleScheduleChange = (event) => {
         setSchedule(event.target.value);
+    };
+
+    const handleSubmit = async () => {
+        const startTime = `${startHour}:${startMinute}:00`; // 시작 시간 포맷
+        const endTime = `${startHour}:${parseInt(startMinute) + 2}:00`; // 종료 시간 예시로 2시간 후
+        const isDaily = frequency === '1';
+        const isWeekly = frequency === '7';
+        const isMonthly = frequency === '30';
+
+        const requestBody = {
+            input_schedule_date: scheduleDate,
+            input_start_time: startTime,
+            input_end_time: endTime,
+            schedule_title: schedule,
+            is_daily: isDaily,
+            is_weekly: isWeekly,
+            is_monthly: isMonthly,
+            is_yearly: false // 연간 스케줄은 예시로 false로 설정
+        };
+
+        try {
+            const response = await api.post('/personal/my-schedule/', requestBody, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('스케줄 등록 성공:', response.data);
+            // 성공적으로 스케줄이 등록된 후에 추가적인 처리 (예: 알림, 리셋 등)
+        } catch (error) {
+            console.error('스케줄 등록 오류:', error.response?.data || error.message);
+            // 오류 처리
+        }
     };
 
     return (
@@ -154,15 +190,15 @@ function RepeatedSchedule() {
                 <FrequencyButton active={frequency === '1'} onClick={() => setFrequency('1')}>
                     <Month>1</Month>
                     <TermText>데일리</TermText>
-                    </FrequencyButton>
+                </FrequencyButton>
                 <FrequencyButton active={frequency === '7'} onClick={() => setFrequency('7')}>
                     <Month>7</Month>
                     <TermText>위클리</TermText>
-                    </FrequencyButton>
+                </FrequencyButton>
                 <FrequencyButton active={frequency === '30'} onClick={() => setFrequency('30')}>
-                    <Month>30 </Month>
+                    <Month>30</Month>
                     <TermText>먼슬리</TermText> 
-                    </FrequencyButton>
+                </FrequencyButton>
             </FrequencyContainer>
 
             <ScheduleInput>
@@ -170,9 +206,11 @@ function RepeatedSchedule() {
                     value={schedule} 
                     onChange={handleScheduleChange} 
                     placeholder="스케줄명을 입력해 주세요." 
-                    />
+                />
                 <CharCount>{schedule.length}/15</CharCount>
-                </ScheduleInput>
+            </ScheduleInput>
+
+            <button onClick={handleSubmit}>스케줄 등록</button> {/* 제출 버튼 추가 */}
         </RepeatedScheduleContainer>
     );
 }

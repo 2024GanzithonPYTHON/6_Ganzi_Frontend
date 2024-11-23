@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-
+import api from "../../../api/api";
 import Calendar from "../../familycalendar/Calendar";
-import EditDate from "./EditDate";
+import EditDate from "./editDate";
+import SelectedDate from "./selectedDay";
 
 const ScheduleContainer = styled.div`
     margin-top: 20px;
@@ -41,10 +42,13 @@ const DeleteButton = styled.button`
 function EditMyCalendar() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [personalScheduleId, setPersonalScheduleId] = useState(null); // 스케줄 ID 상태 추가
 
     const handleDateSelect = (date) => {
         setSelectedDate(date);
         setIsEditing(true); // 날짜 선택 시 편집 모드 활성화
+        // 여기서 personalScheduleId를 설정하는 로직을 추가할 수 있습니다.
+        // 예를 들어, 날짜에 해당하는 스케줄 ID를 가져오는 API 호출 등을 할 수 있습니다.
     };
 
     const handleToggleEdit = () => {
@@ -58,12 +62,17 @@ function EditMyCalendar() {
         handleToggleEdit(); // 편집 모드 종료
     };
 
-    const handleDelete = () => {
-        // 삭제 로직을 여기에 추가
-        console.log(`삭제된 날짜: ${selectedDate}`);
-        // 예를 들어, API 호출 등을 통해 삭제할 수 있습니다.
-        setSelectedDate(null); // 선택된 날짜 초기화
-        handleToggleEdit(); // 편집 모드 종료
+    const handleDelete = async () => {
+        try {
+            await api.delete(`/personal/schedule/${personalScheduleId}/`); // DELETE 요청
+            console.log(`삭제된 스케줄 ID: ${personalScheduleId}`);
+            // 삭제 후 상태 초기화
+            setSelectedDate(null);
+            setPersonalScheduleId(null);
+            handleToggleEdit(); // 편집 모드 종료
+        } catch (error) {
+            console.error('삭제 오류:', error.response?.data || error.message);
+        }
     };
 
     return (
@@ -72,7 +81,11 @@ function EditMyCalendar() {
             {selectedDate && (
                 <ScheduleContainer>
                     {isEditing && (
-                        <EditDate date={selectedDate} onToggleEdit={handleToggleEdit} />
+                        <SelectedDate 
+                            date={selectedDate} 
+                            onToggleEdit={handleToggleEdit} 
+                            setPersonalScheduleId={setPersonalScheduleId} // ID 설정을 위한 prop 추가
+                        />
                     )}
                     <ButtonContainer>
                         <StyledButton onClick={handleSave}>저장하기</StyledButton>
