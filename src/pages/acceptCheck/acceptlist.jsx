@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import api from '../../api/api';
 
 // 스타일 컴포넌트 정의
@@ -52,76 +51,52 @@ const ScheduleContent = styled.p`
     color: #555;
 `;
 
-const LoadingText = styled.p`
-    font-size: 16px;
-    color: #555;
-    text-align: center;
-`;
-
 function AcceptList() {
     const navigate = useNavigate();
     const userAccessToken = localStorage.getItem("access_token");
     const [incomingSchedules, setIncomingSchedules] = useState([]);
-    const [activeTab, setActiveTab] = useState('accept'); // 활성화된 탭 상태 추가
-    const [loading, setLoading] = useState(true); // 로딩 상태 추가
-
-    const handleSentSchedulesClick = () => {
-        setActiveTab('sent'); // 탭 상태 업데이트
-        fetchIncomingSchedules(); // 데이터 요청
-        navigate('/sent-schedules');
-    };
-
-    const handleRejectedSchedulesClick = () => {
-        setActiveTab('reject'); // 탭 상태 업데이트
-        fetchIncomingSchedules(); // 데이터 요청
-        navigate('/rejected-schedules');
-    };
-
-    const handleCardClick = (schedule) => {
-        navigate('/schedule-request', { state: { schedule } });
-    };
+    const [loading, setLoading] = useState(true);
 
     const fetchIncomingSchedules = async () => {
-        setLoading(true); // 데이터 요청 전 로딩 시작
+        setLoading(true);
         try {
             const response = await api.get('/family/incoming/', {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
             });
-            const schedules = response.data.map(schedule => ({
-                category: schedule.category_name,
-                title: schedule.schedule_title,
-                content: schedule.schedule_memo
-            }));
-            setIncomingSchedules(schedules);
+            setIncomingSchedules(response.data);
         } catch (error) {
             console.error('API 요청 오류:', error.message);
         } finally {
-            setLoading(false); // 데이터 요청 후 로딩 종료
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchIncomingSchedules(); // 컴포넌트 초기 렌더링 시 데이터 요청
+        fetchIncomingSchedules();
     }, []);
+
+    const handleCardClick = (schedule) => {
+        navigate(`/schedule-request/${schedule.id}`); // id를 URL 파라미터로 전달
+    };
 
     return (
         <Container>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
-                <Tab onClick={() => { setActiveTab('accept'); fetchIncomingSchedules(); }} active={activeTab === 'accept'}>받은 스케줄</Tab>
-                <Tab onClick={handleSentSchedulesClick} active={activeTab === 'sent'}>보낸 스케줄</Tab>
-                <Tab onClick={handleRejectedSchedulesClick} active={activeTab === 'reject'}>거절한 스케줄</Tab>
+                <Tab>받은 스케줄</Tab>
+                <Tab>보낸 스케줄</Tab>
+                <Tab>거절한 스케줄</Tab>
             </TabContainer>
             {loading ? (
-                <LoadingText>로딩중...</LoadingText>
+                <p>로딩중...</p>
             ) : (
-                incomingSchedules.map((schedule, index) => (
-                    <ScheduleCard key={index} onClick={() => handleCardClick(schedule)}>
-                        <Category>{schedule.category}</Category>
-                        <ScheduleTitle>{schedule.title}</ScheduleTitle>
-                        <ScheduleContent>{schedule.content}</ScheduleContent>
+                incomingSchedules.map((schedule) => (
+                    <ScheduleCard key={schedule.id} onClick={() => handleCardClick(schedule)}>
+                        <Category>{schedule.category_name}</Category>
+                        <ScheduleTitle>{schedule.schedule_title}</ScheduleTitle>
+                        <ScheduleContent>{schedule.schedule_memo}</ScheduleContent>
                     </ScheduleCard>
                 ))
             )}

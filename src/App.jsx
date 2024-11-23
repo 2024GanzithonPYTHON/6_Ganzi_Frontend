@@ -14,7 +14,7 @@ import LoginPage from './pages/login/Login';
 import './App.css'
 import Logo from './global/Logo';
 import AcceptList from './pages/acceptCheck/acceptlist';
-import ScheduleRequest from './pages/acceptCheck/scheduleRequest';
+import ScheduleRequest from './pages/acceptCheck/asking/scheduleRequest';
 import SentSchedule from './pages/acceptCheck/sentSchedule';
 import RejectedSchedule from './pages/acceptCheck/rejectedSchedule';
 
@@ -83,7 +83,7 @@ const Footer = styled.div`
           <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
           <Route path="/Login" element={<LoginPage />} />
           <Route path = "/Acceptance" element = {<AcceptList/>}/>
-          <Route path = "/schedule-request" element={<ScheduleRequest/>}/>
+          <Route path="/schedule-request/:id" element={<ScheduleRequest />} />
           <Route path="/sent-schedules" element={<SentSchedule />} />
           <Route path="/rejected-schedules" element={<RejectedSchedule />}/>
             
