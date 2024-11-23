@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../contexts/DataContext"; //경로
 import "./SingleNRoutine.css";
 import Calendar from '../familycalendar/Calendar';
-import apiClient from "../../api/axClient";
+import apiClient from "../auth/axiosInstance";
 import Load from '../../assets/workCategory/loading-img.gif';
 
 const App = () => {

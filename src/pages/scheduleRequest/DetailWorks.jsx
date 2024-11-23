@@ -39,7 +39,7 @@ import Etcc from "../../assets/workCategory/etc3.png";
 import Etcd from "../../assets/workCategory/etc4.png"; 
 import Etce from "../../assets/workCategory/etc5.png"; 
 import Etc from "../../assets/workCategory/etc.png";  
-import apiClient from "../../api/axClient";
+import apiClient from "../auth/axiosInstance";
 
 
 const DetailWorks = () => {
