@@ -74,7 +74,8 @@ const Footer = styled.div`
         </LogoFix>
         <Content>
         <Routes>
-          <Route path = "/" element = {<Home/>}/> {/*일단 예비로 빼뒀습니다. 디자인에 방해될 것 같아서요!*/ }
+          <Route path = "/" element = {<LoginPage />}/> {/*일단 예비로 빼뒀습니다. 디자인에 방해될 것 같아서요!*/ }
+          <Route path = "/Home" element = {<Home/>}/> {/*일단 예비로 빼뒀습니다. 디자인에 방해될 것 같아서요!*/ }
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/EditProfile" element={<EditProfile />} />
           <Route path="/Register" element={<Register />} />
