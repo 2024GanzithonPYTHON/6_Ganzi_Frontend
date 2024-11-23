@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import apiClient from "../../api/axClient";
 import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
-import logoutImage from '../../assets/mypage/logout.png';
-import rightWay from '../../assets/mypage/rightAngleBracket.png';
-import calButton from '../../assets/mypage/calendarButton.png';
+import logoutImage from '../../assets/myPage/logout.png';
+import rightWay from '../../assets/myPage/rightAngleBracket.png';
+import calButton from '../../assets/myPage/calendarButton.png';
 import FamilyList from './FamilyList'
 
 const MyPage = () => {
