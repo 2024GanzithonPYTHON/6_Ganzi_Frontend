@@ -36,38 +36,46 @@ const TableCell = styled.td`
 
 const ScheduleContainer = styled.div`
     width: 359px;
-    height: 324px;
+    height: auto; /* 높이를 자동으로 조정 */
     border-radius: 20px;
     background-color: var(--Color-3, #F8D785);
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
 `;
 
-const MySchedulelist = ({ schedules = [], loading, error }) => {
+// MySchedulelist Component
+const MySchedulelist = ({ schedules = [], loading, error, selectedDate }) => {
     return (
         <ScheduleContainer>
-            <h1>스케줄 목록</h1>
             {loading && <p>로딩 중...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {schedules.length === 0 && !loading && !error ? (
-                <p>스케줄이 없습니다.</p>
+                <p>해당 날짜에 스케줄이 없습니다.</p>
             ) : (
-                schedules.map(schedule => (
-                    <div key={schedule.personal_schedule_id}>
-                        <h2>{schedule.schedule_title}</h2>
-                        <p>{schedule.schedule_date}</p>
-                        <p>{schedule.start_time} - {schedule.end_time}</p>
-                    </div>
-                ))
+                schedules.map(schedule => {
+                    // 선택한 날짜와 스케줄 날짜가 일치할 때만 렌더링
+                    if (schedule.schedule_date === selectedDate) {
+                        return (
+                            <div key={schedule.personal_schedule_id}>
+                                <h2>{schedule.schedule_title}</h2>
+                                <p>{schedule.schedule_date}</p>
+                                <p>{schedule.start_time} - {schedule.end_time}</p>
+                            </div>
+                        );
+                    }
+                    return null; // 일치하지 않으면 아무것도 렌더링하지 않음
+                })
             )}
         </ScheduleContainer>
     );
 };
 
+// WeekCalendar Component
 const WeekCalendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd')); // 오늘 날짜로 초기화
 
     const getWeekStart = (date) => startOfWeek(date, { weekStartsOn: 0 });
     const weekStart = addWeeks(getWeekStart(currentDate), 1);
@@ -106,6 +114,8 @@ const WeekCalendar = () => {
 
         setLoading(true);
         setError(null);
+        setSchedules([]); // 이전 스케줄 초기화
+        setSelectedDate(date); // 선택된 날짜 업데이트
 
         try {
             const response = await api.get(url, {
@@ -117,7 +127,11 @@ const WeekCalendar = () => {
             });
 
             console.log('서버에서 반환된 스케줄 데이터:', response.data);
-            setSchedules(response.data.schedule);
+            if (response.data && response.data.schedule) {
+                setSchedules(response.data.schedule); // 새 스케줄로 업데이트
+            } else {
+                setSchedules([]); // 스케줄이 없으면 빈 배열로 설정
+            }
         } catch (error) {
             console.error('API 요청 오류:', error.response?.data || error.message);
             setError('스케줄을 불러오는 데 실패했습니다.');
@@ -154,7 +168,7 @@ const WeekCalendar = () => {
                 </table>
                 <Button onClick={goToNextWeek}>&gt;</Button>
             </YearMonthContainer>
-            <MySchedulelist schedules={schedules} loading={loading} error={error} />
+            <MySchedulelist schedules={schedules} loading={loading} error={error} selectedDate={selectedDate} />
         </div>
     );
 };
