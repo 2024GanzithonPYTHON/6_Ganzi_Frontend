@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Calendar from "../../familycalendar/Calendar";
 import EditDate from "./EditDate";
+import SelectedDate from "./selectedDay";
 
 const ScheduleContainer = styled.div`
     margin-top: 20px;
@@ -41,7 +42,7 @@ const DeleteButton = styled.button`
 function EditMyCalendar() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-
+    
     const handleDateSelect = (date) => {
         setSelectedDate(date);
         setIsEditing(true); // 날짜 선택 시 편집 모드 활성화
@@ -72,7 +73,7 @@ function EditMyCalendar() {
             {selectedDate && (
                 <ScheduleContainer>
                     {isEditing && (
-                        <EditDate date={selectedDate} onToggleEdit={handleToggleEdit} />
+                        <SelectedDate date={selectedDate} onToggleEdit={handleToggleEdit} />
                     )}
                     <ButtonContainer>
                         <StyledButton onClick={handleSave}>저장하기</StyledButton>
