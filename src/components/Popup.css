@@ -1,0 +1,70 @@
+/* 팝업 배경 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* 팝업 컨테이너 */
+  .popup-content {
+    position: relative;
+    background: white;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 닫기 버튼 */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* 강조 텍스트 */
+  .highlight {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* 장소 섹션 */
+  .place-section {
+    margin-top: 20px;
+  }
+  
+  /* 장소 이미지 */
+  .place-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* 장소 링크 버튼 */
+  .place-link-button {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .place-link-button:hover {
+    background: #0056b3;
+  }

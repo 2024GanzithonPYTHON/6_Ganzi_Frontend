@@ -19,7 +19,7 @@ const App = () => {
   const [recurringMonth, setRecurringMonth] = useState("01");
   const [recurringDay, setRecurringDay] = useState("01");
   const [recurringHour, setRecurringHour] = useState("00");
-  const { setFirstlData, setBackendResponse } = useContext(DataContext);
+  const { setFirstData, setBackendResponse } = useContext(DataContext);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const App = () => {
       const response = await apiClient.post("/sch_requests/get-available-user/", data); // 엔드포인트 변경
       console.log("Success:", response.data);
       setBackendResponse(response.data); // 백엔드 응답 저장
-      setFirstlData(data); // 초기 데이터 저장
+      setFirstData(data); // 초기 데이터 저장
       navigate("/DetailWorks", {state: { availableUsers: response.data}}); // 세부 업무 선택 페이지로 이동
     } catch (error) {
       console.error("Error posting data:", error);

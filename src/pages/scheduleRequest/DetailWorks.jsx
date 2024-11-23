@@ -116,11 +116,47 @@ const DetailWorks = () => {
     });
   };
 
+  const generateRepeatedFlags = (isRepeated) => {
+    const flags = {
+      is_daily: "0",
+      is_weekly: "0",
+      is_monthly: "0",
+      is_yearly: "0",
+    };
+  
+    switch (isRepeated) {
+      case "0":
+        flags.is_daily = "0";
+        break;
+      case "1":
+        flags.is_daily = "1";
+        break;
+      case "2":
+        flags.is_weekly = "1";
+        break;
+      case "3":
+        flags.is_monthly = "1";
+        break;
+      case "4":
+        flags.is_yearly = "1";
+        break;
+      default:
+        throw new Error(`Invalid is_repeated value: ${isRepeated}`);
+    }
+  
+    return flags;
+  };
+  
+  // is_repeated 값으로 반복 플래그 생성
+  const repeatedFlags = generateRepeatedFlags(firstData.is_repeated);
+
   const handleSubmit = async () => {
     const finalData = {
-      ...firstData,
+      start_time: firstData.start_time, // firstData에서 start_time 그대로 포함
+      end_time: firstData.end_time,
+      ...repeatedFlags,
       title: isCustomTitle ? customTitle : title,
-      category_id: categoryId,
+      category_id: String(categoryId),
       target_users: targetUsers,
       memo,
     };
@@ -129,7 +165,7 @@ const DetailWorks = () => {
       console.log(finalData);
       const response = await apiClient.post("/sch_requests/register/", finalData);
       console.log("Success:", response.data);
-      navigate("/SuccessPage"); // 성공 후 이동
+      navigate("/Home"); // 성공 후 이동
     } catch (error) {
       console.error("Error:", error);
     }
