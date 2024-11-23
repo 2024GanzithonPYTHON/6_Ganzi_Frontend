@@ -1,13 +1,13 @@
-import cookBadge from '../assets/badge/badge1.png';
-import pickBadge from '../assets/badge/badge2.png';
-import shopperBadge from '../assets/badge/badge3.png';
-import dishBadge from '../assets/badge/badge4.png';
-import madeBadge from '../assets/badge/badge5.png';
-import laundryBadge from '../assets/badge/badge6.png';
-import healthBadge from '../assets/badge/badge7.png';
-import hospitalBadge from '../assets/badge/badge8.png';
-import dustBadge from '../assets/badge/badge9.png';
-import laughBadge from '../assets/badge/badge10.png';
+import cookBadge from '../assets/badge/badge10.png';
+import pickBadge from '../assets/badge/badge9.png';
+import shopperBadge from '../assets/badge/badge8.png';
+import dishBadge from '../assets/badge/badge7.png';
+import madeBadge from '../assets/badge/badge6.png';
+import laundryBadge from '../assets/badge/badge5.png';
+import healthBadge from '../assets/badge/badge4.png';
+import hospitalBadge from '../assets/badge/badge3.png';
+import dustBadge from '../assets/badge/badge2.png';
+import laughBadge from '../assets/badge/badge1.png';
 
 
 const badgeMapping = {

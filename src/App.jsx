@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'; /* useEffect 추가 */
 import { BrowserRouter as Router, Route, Routes, Navigate /* Navigate 추가 */ } from 'react-router-dom';
+import { DataProvider } from "./contexts/DataContext";
 import Register from './pages/login/Register';
 import MyPage from './pages/myPage/myPage';
 import EditProfile from './pages/myPage/EditProfile';
@@ -9,8 +10,9 @@ import MyWeek from './pages/myCalendar/myschedule';
 import MyMemo from './pages/Memo/MyMemo';
 import EditMyCalendar from './pages/myCalendar/editMyCalendar/editMyCalendar';
 import SelectRoutine from './pages/scheduleRequest/SingleNRoutine';
-import Loading from './pages/scheduleRequest/Loading';
+import SelectWork from './pages/scheduleRequest/DetailWorks';
 import LoginPage from './pages/login/Login';
+import KakaoRedirector from './pages/login/KakaoLoginRedirection';
 import './App.css'
 import Logo from './global/Logo';
 import AcceptList from './pages/acceptCheck/acceptlist';
@@ -78,15 +80,15 @@ const Footer = styled.div`
           <Route path = "/MyWeek" element = {<MyWeek/>}/>
           <Route path = "/FamilyCalendar" element = {<FamilyCalendar/>}/>
           <Route path = "/MyMemo" element = {<MyMemo/>}/>
-          <Route path = "/EditMyCalendar" element = {<EditMyCalendar/>}/>
-          <Route path="/SingleNroutine" element={<SelectRoutine />} />
-          <Route path="/Loading" element={<Loading />} /> {/* 로딩 로직 수정 */}
+          <Route path="/SingleNRoutine" element={<DataProvider><SelectRoutine /></DataProvider>} />
+          <Route path="/DetailWorks" element={<DataProvider><SelectWork /></DataProvider>} />
           <Route path="/Login" element={<LoginPage />} />
+          <Route path="/KakaoLoginRedirection" element={<KakaoRedirector />} />
+          <Route path = "/EditMyCalendar" element = {<EditMyCalendar/>}/>
           <Route path = "/Acceptance" element = {<AcceptList/>}/>
           <Route path = "/schedule-request" element={<ScheduleRequest/>}/>
           <Route path="/sent-schedules" element={<SentSchedule />} />
           <Route path="/rejected-schedules" element={<RejectedSchedule />}/>
-            
           {/* 다른 Route 추가 */}
         </Routes>
         </Content>

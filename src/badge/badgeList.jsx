@@ -1,5 +1,5 @@
 import React from "react";
-import badgeMapping from "./badgeMapping"; // 배지 매핑 정보
+import badgeMapping from "./BadgeMapping"; // 배지 매핑 정보
 
 const BadgeList = ({ badges }) => {
   return (

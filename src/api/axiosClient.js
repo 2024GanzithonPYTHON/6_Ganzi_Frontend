@@ -1,14 +1,40 @@
+import axios from "axios";
+import { Cookies } from "react-cookie";
+// import { getCookie, setCookie } from "../auth/cookie";
+
+const axiosInstance = axios.create({
+  baseURL: `http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/`,
+});
+
+axiosInstance.interceptors.request.use(
+    async (config) => {
+        const cookies = new Cookies();
+        const accessToken = cookies.get('access_token');
+
+        if (accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (err) => {
+        return Promise.reject(err);
+    }
+)
+
+export default axiosInstance;
+
+
 /* 토큰 상태 관리를 위한 유틸 */
 /* import apiClient from "./axiosClient"; 경로 확인하고 각 페이지에서 import 하면 됨 */
 /* 요청 시 AutAuthorization HEADER 에 자동으로 Bearer access_token 을 달아줌 */
 
-import axios from "axios";
+//import axios from "axios";
 
-const apiClient = axios.create({
-  baseURL: "http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/",
+//const apiClient = axios.create({
+//  baseURL: "http://ec2-3-34-78-66.ap-northeast-2.compute.amazonaws.com/",
   /* 우리는 토큰 방식이라 일단 필요한지 고민중 withCredentials: true, // 쿠키 및 인증 정보를 요청에 포함 */
-});
-
+//});
+/*
 // 요청 인터셉터: Authorization 헤더 추가
 apiClient.interceptors.request.use(
   (config) => {
@@ -22,7 +48,7 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+*/
 /* 사용 여부 고민중인 함수-구현 잘 하면 unveil 하겠음
 // 응답 인터셉터: Access Token 만료 처리
 apiClient.interceptors.response.use(
@@ -58,4 +84,4 @@ apiClient.interceptors.response.use(
 );
 */
 
-export default apiClient;
+//export default apiClient;
