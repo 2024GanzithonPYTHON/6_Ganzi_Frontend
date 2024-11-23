@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import apiClient from "../../api/axClient";
+import axiosInstance from "../auth/axiosInstance";
 import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
 import logoutImage from '../../assets/myPage/logout.png';
@@ -16,7 +16,7 @@ const MyPage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await apiClient.get("/accounts/myprofile/");
+        const response = await axiosInstance.get("/accounts/myprofile/");
         setProfile(response.data); // 프로필 데이터를 상태에 저장
     } catch (error) {
         console.error("API 요청 실패", error);
@@ -29,7 +29,7 @@ const MyPage = () => {
   const handleLogout = async () => {
     try {
       // 로그아웃 요청
-      await apiClient.post("/accounts/kakao/logout/"); // 로그아웃 엔드포인트로 POST 요청
+      await axiosInstance.post("/accounts/kakao/logout/"); // 로그아웃 엔드포인트로 POST 요청
 
       // 로컬 스토리지에서 토큰 삭제 (로그아웃 처리)
       localStorage.removeItem("access_token");
