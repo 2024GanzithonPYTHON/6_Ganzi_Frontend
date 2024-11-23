@@ -52,19 +52,28 @@ const ScheduleContent = styled.p`
     color: #555;
 `;
 
+const LoadingText = styled.p`
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+`;
+
 function AcceptList() {
     const navigate = useNavigate();
     const userAccessToken = localStorage.getItem("access_token");
     const [incomingSchedules, setIncomingSchedules] = useState([]);
     const [activeTab, setActiveTab] = useState('accept'); // 활성화된 탭 상태 추가
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
     const handleSentSchedulesClick = () => {
         setActiveTab('sent'); // 탭 상태 업데이트
+        fetchIncomingSchedules(); // 데이터 요청
         navigate('/sent-schedules');
     };
 
     const handleRejectedSchedulesClick = () => {
         setActiveTab('reject'); // 탭 상태 업데이트
+        fetchIncomingSchedules(); // 데이터 요청
         navigate('/rejected-schedules');
     };
 
@@ -73,6 +82,7 @@ function AcceptList() {
     };
 
     const fetchIncomingSchedules = async () => {
+        setLoading(true); // 데이터 요청 전 로딩 시작
         try {
             const response = await api.get('/family/incoming/', {
                 headers: {
@@ -87,28 +97,34 @@ function AcceptList() {
             setIncomingSchedules(schedules);
         } catch (error) {
             console.error('API 요청 오류:', error.message);
+        } finally {
+            setLoading(false); // 데이터 요청 후 로딩 종료
         }
     };
 
     useEffect(() => {
-        fetchIncomingSchedules();
+        fetchIncomingSchedules(); // 컴포넌트 초기 렌더링 시 데이터 요청
     }, []);
 
     return (
         <Container>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
-                <Tab onClick={() => {}} active={activeTab === 'accept'}>받은 스케줄</Tab>
+                <Tab onClick={() => { setActiveTab('accept'); fetchIncomingSchedules(); }} active={activeTab === 'accept'}>받은 스케줄</Tab>
                 <Tab onClick={handleSentSchedulesClick} active={activeTab === 'sent'}>보낸 스케줄</Tab>
                 <Tab onClick={handleRejectedSchedulesClick} active={activeTab === 'reject'}>거절한 스케줄</Tab>
             </TabContainer>
-            {incomingSchedules.map((schedule, index) => (
-                <ScheduleCard key={index} onClick={() => handleCardClick(schedule)}>
-                    <Category>{schedule.category}</Category>
-                    <ScheduleTitle>{schedule.title}</ScheduleTitle>
-                    <ScheduleContent>{schedule.content}</ScheduleContent>
-                </ScheduleCard>
-            ))}
+            {loading ? (
+                <LoadingText>로딩중...</LoadingText>
+            ) : (
+                incomingSchedules.map((schedule, index) => (
+                    <ScheduleCard key={index} onClick={() => handleCardClick(schedule)}>
+                        <Category>{schedule.category}</Category>
+                        <ScheduleTitle>{schedule.title}</ScheduleTitle>
+                        <ScheduleContent>{schedule.content}</ScheduleContent>
+                    </ScheduleCard>
+                ))
+            )}
         </Container>
     );
 }
