@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import api from '../../api/api'; 
+import api from '../auth/axiosInstance'; 
 
 const Container = styled.div`
     background-color: rgba(243, 243, 243, 0.60);

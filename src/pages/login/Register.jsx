@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import profileUpload from '../../assets/myPage/imageUploader.png';
 import './Register.css'
-import apiClient from '../../api/axiosClient';
+import apiClient from '../auth/axiosInstance';
 
 function Register() {
   const navigate = useNavigate();

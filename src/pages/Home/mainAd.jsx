@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import api from '../../api/api'; // API 인스턴스 임포트
+import api from '../auth/axiosInstance'; // API 인스턴스 임포트
 
 const AdContainer = styled.div`
     display: flex; /* 플렉스 박스 사용 */

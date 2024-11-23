@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import api from "../../api/api";
+import api from "../auth/axiosInstance";
 import React, { useEffect, useState } from "react";
 
 const Container = styled.div`
