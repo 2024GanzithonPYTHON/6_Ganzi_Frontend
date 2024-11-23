@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import apiClient from "../../api/axClient";
+import apiClient from "../auth/axiosInstance";
 import "./myPage.css";
 import BadgeList from "../../badge/badgeList";
 import logoutImage from '../../assets/myPage/logout.png';

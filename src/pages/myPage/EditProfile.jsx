@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axClient';
+import axios from '../auth/axiosInstance';
 import './EditProfile.css';
 import backButton from '../../assets/myPage/leftAngleBracket.png';
 import profileUpload from '../../assets/myPage/imageUploader.png';
