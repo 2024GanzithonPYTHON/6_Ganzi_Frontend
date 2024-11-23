@@ -103,7 +103,6 @@ function SentRequest() {
     const fetchScheduleData = async () => {
         setLoading(true);
         try {
-            // URL에서 id를 사용하여 요청
             const response = await api.get(`/family/outgoing/${id}/`, {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
@@ -123,6 +122,19 @@ function SentRequest() {
 
     const handleAccept = () => {
         setShowPopup(true);
+    };
+
+    const handleReject = async () => {
+        try {
+            await api.delete(`/family/outgoing/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            navigate('/Acceptance'); // 거절 후 Acceptance 페이지로 이동
+        } catch (error) {
+            console.error('거절 요청 오류:', error.message);
+        }
     };
 
     const handleClosePopup = () => {
@@ -153,8 +165,8 @@ function SentRequest() {
             </ScheduleDetails>
 
             <ButtonContainer>
-                <Button onClick={handleAccept}>수락하기</Button>
-                <Button>거절하기</Button>
+                
+                <Button onClick={handleReject}>요청취소하기</Button>
             </ButtonContainer>
 
             {showPopup && (

@@ -121,8 +121,30 @@ function RejectingRequest() {
         fetchScheduleData();
     }, [id]);
 
-    const handleAccept = () => {
-        setShowPopup(true);
+    const handleAccept = async () => {
+        try {
+            await api.post(`/family/declined/${id}/`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            setShowPopup(true); // 요청 성공 시 팝업 표시
+        } catch (error) {
+            console.error('수락 요청 오류:', error.message);
+        }
+    };
+
+    const handleReject = async () => {
+        try {
+            await api.delete(`/family/declined/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            navigate('/Acceptance'); // 거절 후 Acceptance 페이지로 이동
+        } catch (error) {
+            console.error('거절 요청 오류:', error.message);
+        }
     };
 
     const handleClosePopup = () => {
@@ -153,8 +175,8 @@ function RejectingRequest() {
             </ScheduleDetails>
 
             <ButtonContainer>
-                <Button onClick={handleAccept}>수락하기</Button>
-                <Button>거절하기</Button>
+                <Button onClick={handleAccept}>거절 철회하고 수락하기</Button>
+                <Button onClick={handleReject}>삭제하기</Button>
             </ButtonContainer>
 
             {showPopup && (

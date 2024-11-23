@@ -94,6 +94,7 @@ const Overlay = styled.div`
 
 function ScheduleRequest() {
     const [showPopup, setShowPopup] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [scheduleData, setScheduleData] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -120,13 +121,48 @@ function ScheduleRequest() {
         fetchScheduleData();
     }, [id]);
 
-    const handleAccept = () => {
-        setShowPopup(true);
+    const handleAccept = async () => {
+        try {
+            await api.post(`/family/incoming/${id}/`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            setShowPopup(true); // 요청 성공 시 팝업 표시
+        } catch (error) {
+            console.error('수락 요청 오류:', error.message);
+        }
+    };
+
+    const handleDeleteConfirm = () => {
+        setShowDeleteConfirm(true); // 삭제 확인 팝업 표시
+    };
+
+    const handleReject = async () => {
+        try {
+            await api.delete(`/family/incoming/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${userAccessToken}`
+                }
+            });
+            navigate('/Acceptance'); // 거절 후 Acceptance 페이지로 이동
+        } catch (error) {
+            console.error('거절 요청 오류:', error.message);
+        }
     };
 
     const handleClosePopup = () => {
         setShowPopup(false);
         navigate('/Acceptance'); // Acceptance 페이지로 이동
+    };
+
+    const handleCloseDeleteConfirm = () => {
+        setShowDeleteConfirm(false); // 삭제 확인 팝업 닫기
+    };
+
+    const handleConfirmDelete = () => {
+        handleReject(); // 실제 삭제 요청 수행
+        handleCloseDeleteConfirm(); // 삭제 확인 팝업 닫기
     };
 
     if (loading) {
@@ -153,7 +189,7 @@ function ScheduleRequest() {
 
             <ButtonContainer>
                 <Button onClick={handleAccept}>수락하기</Button>
-                <Button>거절하기</Button>
+                <Button onClick={handleDeleteConfirm}>거절하기</Button>
             </ButtonContainer>
 
             {showPopup && (
@@ -163,6 +199,18 @@ function ScheduleRequest() {
                         <h2>수락되었습니다!</h2>
                         <p>스케줄이 성공적으로 수락되었습니다.</p>
                         <Button onClick={handleClosePopup}>확인</Button>
+                    </Popup>
+                </>
+            )}
+
+            {showDeleteConfirm && (
+                <>
+                    <Overlay onClick={handleCloseDeleteConfirm} />
+                    <Popup>
+                        <h2>삭제 확인</h2>
+                        <p>정말로 이 요청을 거절하시겠습니까?</p>
+                        <Button onClick={handleConfirmDelete}>삭제하기</Button>
+                        <Button onClick={handleCloseDeleteConfirm}>취소</Button>
                     </Popup>
                 </>
             )}
