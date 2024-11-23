@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import profileUpload from '../../assets/myPage/imageUploader.png';
 import './Register.css'
-import apiClient from '../auth/axiosInstance';
+import axiosInstance from "../auth/axiosInstance"; 
 
 function Register() {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ function Register() {
         invited_user: email,
       };
 
-      const response = await apiClient.patch('/account/profile/', profileData);
+      const response = await axiosInstance.patch('/account/profile/', profileData);
 
       if (response.status === 200) {
         console.log('프로필 업데이트 성공:', response.data);
