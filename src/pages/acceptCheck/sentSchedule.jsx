@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import api from '../../api/api';
 
 // 스타일 컴포넌트 정의
@@ -51,12 +52,6 @@ const ScheduleContent = styled.p`
     color: #555;
 `;
 
-const LoadingText = styled.p`
-    font-size: 16px;
-    color: #555;
-    text-align: center;
-`;
-
 function SentSchedule() {
     const navigate = useNavigate();
     const userAccessToken = localStorage.getItem("access_token"); // 로컬 스토리지에서 액세스 토큰 가져오기
@@ -84,7 +79,7 @@ function SentSchedule() {
     };
 
     const handleCardClick = (schedule) => {
-        navigate('/schedule-request', { state: { schedule } });
+        navigate('/sent-request/:id', { state: { schedule } });
     };
 
     // 보낸 스케줄을 가져오는 함수

@@ -17,7 +17,8 @@ import AcceptList from './pages/acceptCheck/acceptlist';
 import ScheduleRequest from './pages/acceptCheck/asking/scheduleRequest';
 import SentSchedule from './pages/acceptCheck/sentSchedule';
 import RejectedSchedule from './pages/acceptCheck/rejectedSchedule';
-
+import RejectedRequest from './pages/acceptCheck/asking/rejectingRequest';
+import SentRequest from './pages/acceptCheck/asking/sentRequest';
 import BottomNav from './global/BottomNav';
 import styled from "styled-components"
 import axios from 'axios';
@@ -84,6 +85,8 @@ const Footer = styled.div`
           <Route path="/Login" element={<LoginPage />} />
           <Route path = "/Acceptance" element = {<AcceptList/>}/>
           <Route path="/schedule-request/:id" element={<ScheduleRequest />} />
+          <Route path="/rejected-request/:id" element={<RejectedRequest />} />
+          <Route path="/sent-request/:id" element={<SentRequest/>} />
           <Route path="/sent-schedules" element={<SentSchedule />} />
           <Route path="/rejected-schedules" element={<RejectedSchedule />}/>
             

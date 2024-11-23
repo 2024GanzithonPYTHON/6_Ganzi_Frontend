@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import api from '../../api/api';
+import api from '../../api/api'; // API 경로를 확인하세요.
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`
@@ -54,18 +54,26 @@ const ScheduleContent = styled.p`
 function AcceptList() {
     const navigate = useNavigate();
     const userAccessToken = localStorage.getItem("access_token");
-    const [incomingSchedules, setIncomingSchedules] = useState([]);
+    const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState('accept'); // 활성화된 탭 상태 추가
 
-    const fetchIncomingSchedules = async () => {
+    // 엔드포인트 매핑
+    const endpoints = {
+        accept: '/family/incoming/',
+        sent: '/family/outgoing/',
+        reject: '/family/declined/',
+    };
+
+    const fetchSchedules = async (tab) => {
         setLoading(true);
         try {
-            const response = await api.get('/family/incoming/', {
+            const response = await api.get(endpoints[tab], {
                 headers: {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
             });
-            setIncomingSchedules(response.data);
+            setSchedules(response.data);
         } catch (error) {
             console.error('API 요청 오류:', error.message);
         } finally {
@@ -74,25 +82,38 @@ function AcceptList() {
     };
 
     useEffect(() => {
-        fetchIncomingSchedules();
-    }, []);
+        fetchSchedules(activeTab); // 기본적으로 활성화된 탭의 스케줄 데이터 가져오기
+    }, [activeTab]);
 
     const handleCardClick = (schedule) => {
-        navigate(`/schedule-request/${schedule.id}`); // id를 URL 파라미터로 전달
+        // 현재 활성화된 탭에 따라 다른 URL로 이동
+        let requestType;
+        if (activeTab === 'sent') {
+            requestType = 'sent-request';
+        } else if (activeTab === 'reject') {
+            requestType = 'rejected-request';
+        } else {
+            requestType = 'schedule-request';
+        }
+        navigate(`/${requestType}/${schedule.id}`); // id를 URL 파라미터로 전달
+    };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab); // 활성화된 탭 상태 업데이트
     };
 
     return (
         <Container>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
-                <Tab>받은 스케줄</Tab>
-                <Tab>보낸 스케줄</Tab>
-                <Tab>거절한 스케줄</Tab>
+                <Tab onClick={() => handleTabClick('accept')} active={activeTab === 'accept'}>받은 스케줄</Tab>
+                <Tab onClick={() => handleTabClick('sent')} active={activeTab === 'sent'}>보낸 스케줄</Tab>
+                <Tab onClick={() => handleTabClick('reject')} active={activeTab === 'reject'}>거절한 스케줄</Tab>
             </TabContainer>
             {loading ? (
                 <p>로딩중...</p>
             ) : (
-                incomingSchedules.map((schedule) => (
+                schedules.map((schedule) => (
                     <ScheduleCard key={schedule.id} onClick={() => handleCardClick(schedule)}>
                         <Category>{schedule.category_name}</Category>
                         <ScheduleTitle>{schedule.schedule_title}</ScheduleTitle>

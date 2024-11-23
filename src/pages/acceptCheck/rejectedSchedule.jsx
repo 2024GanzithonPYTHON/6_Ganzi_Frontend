@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
+import rejectingRequest from './asking/rejectingRequest';
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`
@@ -82,7 +83,7 @@ function RejectedSchedule() {
     };
 
     const handleCardClick = (schedule) => {
-        navigate('/schedule-request', { state: { schedule } });
+        navigate('/rejected-request/:id', { state: { schedule } });
     };
 
     const fetchIncomingSchedules = async () => {
@@ -115,9 +116,9 @@ function RejectedSchedule() {
         <Container>
             <SubHeader>가족 스케줄 관리</SubHeader>
             <TabContainer>
-                <Tab onClick={handleAcceptSchedulesClick}>받은 스케줄</Tab>
-                <Tab onClick={handleSentSchedulesClick}>보낸 스케줄</Tab>
-                <Tab active onClick={handleRejectedSchedulesClick}>거절한 스케줄</Tab>
+                <Tab onClick={handleAcceptSchedulesClick} active={activeTab === 'accept'}>받은 스케줄</Tab>
+                <Tab onClick={handleSentSchedulesClick} active={activeTab === 'sent'}>보낸 스케줄</Tab>
+                <Tab onClick={handleRejectedSchedulesClick} active={activeTab === 'reject'}>거절한 스케줄</Tab>
             </TabContainer>
             {loading ? (
                 <LoadingText>로딩중...</LoadingText>
