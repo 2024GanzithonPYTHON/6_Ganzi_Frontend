@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../auth/axiosInstance';
+import axiosInstance from "../auth/axiosInstance";
 import './EditProfile.css';
 import backButton from '../../assets/myPage/leftAngleBracket.png';
 import profileUpload from '../../assets/myPage/imageUploader.png';
@@ -25,7 +25,7 @@ const ProfileEdit = () => {
     // 프로필 정보 불러오기
     const fetchProfileData = async () => {
       try {
-        const response = await axios.get('/accounts/myprofile/edit/');
+        const response = await axiosInstance.get('/accounts/myprofile/edit/');
         const { user_id, nickname, profile_img } = response.data;
 
         setUserId(user_id);
@@ -63,7 +63,7 @@ const ProfileEdit = () => {
     }
 
     try {
-      const response = await axios.patch('/accounts/myprofile/edit/', formData, {
+      const response = await axiosInstance.patch('/accounts/myprofile/edit/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // 파일 업로드를 위해 필요
         },
