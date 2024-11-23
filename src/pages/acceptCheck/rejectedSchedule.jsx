@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import api from '../../api/api';
+import api from '../auth/axiosInstance';
 import rejectingRequest from './asking/rejectingRequest';
 
 // 스타일 컴포넌트 정의

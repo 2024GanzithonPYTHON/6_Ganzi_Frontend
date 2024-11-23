@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import SpecialDay from "./specialDay";
-import api from '../../../api/api'; // API 호출을 위한 axios 인스턴스
+import api from '../../auth/axiosInstance'; // API 호출을 위한 axios 인스턴스
 
 const InputContainer = styled.div`
     margin-top: 20px;

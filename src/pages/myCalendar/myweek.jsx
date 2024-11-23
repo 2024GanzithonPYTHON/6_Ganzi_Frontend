@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { format, startOfWeek, addDays, addWeeks, addMonths } from 'date-fns';
 import styled from "styled-components";
-import api from '../../api/api'; // api 모듈 import
+import api from '../auth/axiosInstance'; // api 모듈 import
 
 const Button = styled.button`
     cursor: pointer;
