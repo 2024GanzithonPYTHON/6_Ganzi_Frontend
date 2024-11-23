@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import api from "../../../api/api";
+import api from "../../auth/axiosInstance";
 
 const RepeatedScheduleContainer = styled.div`
     display: flex;

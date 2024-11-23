@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import api from '../../api/api'; // API 경로를 확인하세요.
+import api from '../auth/axiosInstance'; // API 경로를 확인하세요.
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`

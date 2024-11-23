@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import api from "../../../api/api";
+import api from "../../auth/axiosInstance";
 import Calendar from "../../familycalendar/Calendar";
 import EditDate from "./editDate";
 import SelectedDate from "./selectedDay";

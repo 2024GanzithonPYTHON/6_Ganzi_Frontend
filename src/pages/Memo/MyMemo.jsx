@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MemoContainer from './Memo';
 import SaveButton from './SaveButton';
 import TopBar from './TopBar';
-import api from '../../api/api'; // api 인스턴스 임포트
+import api from '../auth/axiosInstance'; // api 인스턴스 임포트
 import axios from 'axios';
 
 const Container = styled.div`

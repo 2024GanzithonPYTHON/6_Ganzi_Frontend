@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import api from '../../api/api';
+import api from '../auth/axiosInstance';
 
 // 스타일 컴포넌트 정의
 const Container = styled.div`
