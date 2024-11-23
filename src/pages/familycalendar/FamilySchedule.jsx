@@ -2,65 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import api from '../../api/api';
 
-// Mock Data -> 후에 이미지까지 올 예정
-const mockSchedules = [
-    {
-        personal_schedule_id: 1,
-        schedule_title: "결혼기념일",
-        schedule_date: "2024-11-16",
-        start_time: "10:00:00",
-        end_time: "12:00",
-        is_daily: false,
-        is_weekly: false,
-        is_monthly: false,
-        is_yearly: true,
-    },
-    {
-        personal_schedule_id: 2,
-        schedule_title: "주간 회의",
-        schedule_date: "2024-11-20", // 주간 회의는 매주 수요일
-        start_time: "14:00:00",
-        end_time: "15:00",
-        is_daily: false,
-        is_weekly: true,
-        is_monthly: false,
-        is_yearly: false,
-    },
-    {
-        personal_schedule_id: 3,
-        schedule_title: "운동",
-        schedule_date: "2024-11-21", // 매일
-        start_time: "06:00:00",
-        end_time: "07:00",
-        is_daily: true,
-        is_weekly: false,
-        is_monthly: false,
-        is_yearly: false,
-    },
-    {
-        personal_schedule_id: 4,
-        schedule_title: "가족 모임",
-        schedule_date: "2024-12-01", // 매년
-        start_time: "18:00:00",
-        end_time: "21:00",
-        is_daily: false,
-        is_weekly: false,
-        is_monthly: false,
-        is_yearly: true,
-    },
-    {
-        personal_schedule_id: 5,
-        schedule_title: "생일 파티",
-        schedule_date: "2024-11-30", // 매년
-        start_time: "17:00:00",
-        end_time: "20:00",
-        is_daily: false,
-        is_weekly: false,
-        is_monthly: false,
-        is_yearly: true,
-    },
-];
-
 const ScheduleContainer = styled.div`
     margin-top: 20px;
     display: flex;
@@ -143,7 +84,7 @@ const FamilySchedule = ({ selectedDate }) => {
     const [schedules, setSchedules] = useState([]);
     const userAccessToken = localStorage.getItem("access_token");
 
-     useEffect(() => {
+    useEffect(() => {
         const fetchSchedules = async () => {
             const year = selectedDate.getFullYear();
             const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // 1월은 0이므로 +1
@@ -155,6 +96,7 @@ const FamilySchedule = ({ selectedDate }) => {
                         'Authorization': `Bearer ${userAccessToken}`,
                     },
                 });
+                console.log('API 응답:', response.data); // 응답 데이터 확인
                 setSchedules(response.data); // 받은 데이터를 상태에 저장
             } catch (error) {
                 console.error('API 요청 오류:', error.message);
@@ -167,31 +109,31 @@ const FamilySchedule = ({ selectedDate }) => {
     }, [selectedDate]);
 
     const isScheduleVisible = (schedule, date) => {
-        const scheduleDate = new Date(schedule.schedule_date);
+        const scheduleStartDate = new Date(`${date.toISOString().split('T')[0]}T${schedule.schedule_start_time}:00`); // 선택된 날짜와 시작 시간을 결합
         const selectedDateObj = new Date(date);
         
         // 날짜 비교
-        const isSameDate = scheduleDate.toDateString() === selectedDateObj.toDateString();
-        const isDaily = schedule.is_daily === true;
-        const isWeekly = schedule.is_weekly === true && selectedDateObj.getDay() === 2; // 화요일
-
-        return isSameDate || isDaily || isWeekly;
+        const isSameDate = scheduleStartDate.toDateString() === selectedDateObj.toDateString();
+        return isSameDate; // is_daily와 is_weekly 조건 제거
     };
+
+    const visibleSchedules = schedules.filter(schedule => isScheduleVisible(schedule, selectedDate));
+    console.log('가시적인 스케줄:', visibleSchedules); // 필터링된 스케줄 확인
 
     return (
         <ScheduleContainer>
-            {schedules.length === 0 ? (
+            {visibleSchedules.length === 0 ? (
                 <p>일정이 없습니다.</p>
             ) : (
-                schedules.filter(schedule => isScheduleVisible(schedule, selectedDate)).map(schedule => (
-                    <ScheduleItem key={schedule.personal_schedule_id}>
+                visibleSchedules.map(schedule => (
+                    <ScheduleItem key={schedule.schedule_title}> {/* 고유 ID가 없다면 다른 필드 사용 */}
                         <GraySquare />
                         <CategoryContainer>
-                            Category: {schedule.category}
+                            Category: {schedule.category_name} {/* category_name으로 수정 */}
                         </CategoryContainer>
                         <InfoContainer>
                             <ScheduleTitle>{schedule.schedule_title}</ScheduleTitle>
-                            <ScheduleTime>{schedule.start_time} - {schedule.end_time}</ScheduleTime>
+                            <ScheduleTime>{schedule.schedule_start_time} - {schedule.schedule_end_time}</ScheduleTime>
                         </InfoContainer>
                     </ScheduleItem>
                 ))
