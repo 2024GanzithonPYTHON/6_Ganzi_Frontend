@@ -20,13 +20,13 @@ const BottomNav = () => {
                     가족 캘린더
             </Link>
 
-            <Link to="/" className="nav-button">
+            <Link to="/Home" className="nav-button">
                 <img src = "/assets/Global/BottomNav/home.svg" alt = "홈"/>
                 <br/>
                 홈
             </Link>
 
-            <Link to="/" className="nav-button">
+            <Link to="/SingleNRoutine" className="nav-button">
             <img src="/assets/Global/BottomNav/register.svg" alt="캘린더등록" />
             <br />
             <div className="smaller-text">가족일정 등록</div> {/* 작은 텍스트 클래스 적용 */}
