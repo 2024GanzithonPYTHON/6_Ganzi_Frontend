@@ -79,7 +79,12 @@ function AcceptList() {
                     'Authorization': `Bearer ${userAccessToken}`
                 }
             });
-            setIncomingSchedules(response.data);
+            const schedules = response.data.map(schedule => ({
+                category: schedule.category_name,
+                title: schedule.schedule_title,
+                content: schedule.schedule_memo
+            }));
+            setIncomingSchedules(schedules);
         } catch (error) {
             console.error('API 요청 오류:', error.message);
         }
